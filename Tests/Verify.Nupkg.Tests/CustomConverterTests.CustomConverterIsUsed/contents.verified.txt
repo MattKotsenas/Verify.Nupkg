@@ -1,4 +1,7 @@
-﻿_rels/.rels
-SamplePackage.nuspec
-lib/net8.0/SamplePackage.dll
-[Content_Types].xml
+﻿/
+|-- _rels
+|   `-- .rels
+|-- lib
+|   `-- net8.0
+|       `-- SamplePackage.dll
+`-- SamplePackage.nuspec
