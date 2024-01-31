@@ -2,4 +2,3 @@
 SamplePackage.nuspec
 lib/net8.0/SamplePackage.dll
 [Content_Types].xml
-package/services/metadata/core-properties/c07f308dffb64d6e90f79f52f5ad4ccc.psmdcp

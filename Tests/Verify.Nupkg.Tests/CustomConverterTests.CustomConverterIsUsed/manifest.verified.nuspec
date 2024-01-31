@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>SamplePackage</id>
-    <version>1.0.0</version>
+    <version>*****</version>
     <authors>SamplePackage</authors>
     <description>Package Description</description>
     <repository type="git" commit="****************************************" />

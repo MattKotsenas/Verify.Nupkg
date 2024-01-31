@@ -22,14 +22,14 @@ public abstract class TestBase
         PackagePath = GetLatestPackageVersion(artifactsPath, packageName).FullName;
     }
 
-    private string RetrieveArtifactsPathFromAssemblyMetadata()
+    private static string RetrieveArtifactsPathFromAssemblyMetadata()
     {
         string packagePath = new PackagePathLocator().Locate();
 
         return packagePath;
     }
 
-    private FileInfo GetLatestPackageVersion(string artifactsPath, string packageName)
+    private static FileInfo GetLatestPackageVersion(string artifactsPath, string packageName)
     {
         return NupkgFinder.Find(artifactsPath).LatestWithName(packageName).Package;
     }
