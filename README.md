@@ -18,6 +18,6 @@ public Task VerifyNupkgFile()
 {
     string packagePath = "path/to/package.nupkg";
 
-    return Verify(packagePath);
+    return VerifyFile(packagePath);
 }
 ```

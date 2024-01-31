@@ -19,7 +19,7 @@ public static class NupkgFinder
         return new Uri(directories.Single());
     }
 
-    public static (FileInfo package, string Version) LatestWithName(this IReadOnlyCollection<FileInfo> packages, string name)
+    public static (FileInfo Package, string Version) LatestWithName(this IReadOnlyCollection<FileInfo> packages, string name)
     {
         FileInfo package = packages
             .Where(p => p.Name.StartsWith($"{name}."))
