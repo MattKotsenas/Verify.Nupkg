@@ -6,6 +6,9 @@ public static class VerifyNupkg
 {
     public static bool Initialized { get; private set; }
 
+    /// <summary>
+    /// Register the .nupkg file converter for Verify.
+    /// </summary>
     public static void Initialize()
     {
         if (Initialized)

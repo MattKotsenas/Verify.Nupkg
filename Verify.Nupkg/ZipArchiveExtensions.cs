@@ -1,7 +1,6 @@
 ﻿using Spectre.Console;
 using Spectre.Console.Testing;
 using System.IO.Compression;
-using System.Text;
 
 namespace VerifyTests;
 
