@@ -1,40 +1,42 @@
 ﻿using Spectre.Console;
 using Spectre.Console.Testing;
 using System.IO.Compression;
+using System.Text.RegularExpressions;
 
 namespace VerifyTests;
 
 internal static class ZipArchiveExtensions
 {
-    public static string ListPackageContents(this ZipArchive zip)
+    public static string ListPackageContents(this ZipArchive zip, IEnumerable<Regex> excludedMatches)
     {
-        PathNode root = new PathNode { Name = "/" };
+        PathNode root = new() { Name = "/" };
 
         foreach (ZipArchiveEntry entry in zip.Entries.OrderBy(e => e.FullName))
         {
-            // Skip the .psmdcp and [Content_Types].xml because they aren't influenced by the user
-            if (!entry.Name.EndsWith(".psmdcp", StringComparison.OrdinalIgnoreCase) && !(entry.FullName == "[Content_Types].xml"))
+            if (excludedMatches.Any(m => m.IsMatch(entry.FullName)))
             {
-                string[] segments = entry.FullName.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-
-                PathNode current = root;
-                foreach (string segment in segments)
-                {
-                    PathNode? target = current.Children.SingleOrDefault(c => c.Name == segment);
-                    if (target is null)
-                    {
-                        PathNode newNode = new PathNode { Name = segment };
-                        current.Children.Add(newNode);
-
-                        current = newNode;
-                    }
-                    else
-                    {
-                        current = target;
-                    }
-                }
-
+                continue;
             }
+
+            string[] segments = entry.FullName.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+            PathNode current = root;
+            foreach (string segment in segments)
+            {
+                PathNode? target = current.Children.SingleOrDefault(c => c.Name == segment);
+                if (target is null)
+                {
+                    PathNode newNode = new() { Name = segment };
+                    current.Children.Add(newNode);
+
+                    current = newNode;
+                }
+                else
+                {
+                    current = target;
+                }
+            }
+
         }
 
         // Spectre.Console requires the top of a tree to be a Tree and not a TreeNode, so start with a dummy TreeNode
@@ -59,7 +61,7 @@ internal static class ZipArchiveExtensions
     {
         foreach (PathNode pathNode in pathNodes)
         {
-            TreeNode childTree = treeNode.AddNode(pathNode.Name);
+            TreeNode childTree = treeNode.AddNode(Markup.Escape(pathNode.Name));
             foreach (PathNode childPath in pathNode.Children.OrderBy(c => c.Name))
             {
                 Walk(childTree, childPath);

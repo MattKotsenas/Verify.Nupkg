@@ -1,9 +1,13 @@
 ﻿using System.IO.Compression;
+using Verify.Nupkg;
 
 namespace VerifyTests;
 
 public static class VerifyNupkg
 {
+    // NOTE: Do not change the name of the `Initialize` method or `Initalized` property
+    // as it is used via reflection by VerifierSettings.InitializePlugins().
+
     public static bool Initialized { get; private set; }
 
     /// <summary>
@@ -22,15 +26,17 @@ public static class VerifyNupkg
 
         VerifierSettings.RegisterFileConverter(
             fromExtension: "nupkg",
-            conversion: (stream, settings) =>
+            conversion: async (stream, settings) =>
             {
+                NupkgDiffSettings diffSettings = settings.GetNupkgDiffSettingsOrDefault();
+
                 using var zip = new ZipArchive(stream, ZipArchiveMode.Read, leaveOpen: true);
 
                 using Stream nuspecStream = zip.Entries.Single(e => e.Name.EndsWith(".nuspec", StringComparison.OrdinalIgnoreCase)).Open();
                 using StreamReader reader = new(nuspecStream);
 
-                string manifest = reader.ReadToEnd();
-                string contents = zip.ListPackageContents();
+                string manifest = await reader.ReadToEndAsync();
+                string contents = zip.ListPackageContents(diffSettings.ExcludedFiles);
 
                 Target[] targets = [
                     new Target(extension: "nuspec", data: manifest, name: "manifest"),

@@ -1,6 +1,6 @@
 ﻿namespace Verify.Nupkg;
 
-public static class VerifySettingsExtensions
+public static class VerifySettingsScrubExtensions
 {
     private static readonly NuspecScrubber _scrubber = new();
 
