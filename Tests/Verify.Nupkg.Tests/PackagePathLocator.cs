@@ -18,7 +18,11 @@ internal class PackagePathLocator
 
     public string Locate()
     {
+        // Disable nullable warnings for this method because the assembly metadata for .ToDictionary()
+        // is <string, string> and in net472, but <string, string?> in net8.0.
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
         IReadOnlyDictionary<string, string?> metadata = _assembly.GetCustomAttributes<AssemblyMetadataAttribute>().ToDictionary(a => a.Key, a => a.Value);
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
 
         if (!metadata.TryGetValue("ArtifactsPath", out string? artifactsPath))
         {

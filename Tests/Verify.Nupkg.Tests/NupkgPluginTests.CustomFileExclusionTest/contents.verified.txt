@@ -1,8 +1,8 @@
 ﻿/
+|-- README.md
+|-- [Content_Types].xml
 |-- _rels
 |   `-- .rels
-|-- [Content_Types].xml
-|-- lib
-|   `-- net8.0
-|       `-- SamplePackage.dll
-`-- README.md
+`-- lib
+    `-- net8.0
+        `-- SamplePackage.dll

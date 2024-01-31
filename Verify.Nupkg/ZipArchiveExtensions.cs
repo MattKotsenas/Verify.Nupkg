@@ -11,7 +11,7 @@ internal static class ZipArchiveExtensions
     {
         PathNode root = new() { Name = "/" };
 
-        foreach (ZipArchiveEntry entry in zip.Entries.OrderBy(e => e.FullName))
+        foreach (ZipArchiveEntry entry in zip.Entries.OrderBy(e => e.FullName, StringComparer.Ordinal))
         {
             if (excludedMatches.Any(m => m.IsMatch(entry.FullName)))
             {
@@ -62,7 +62,7 @@ internal static class ZipArchiveExtensions
         foreach (PathNode pathNode in pathNodes)
         {
             TreeNode childTree = treeNode.AddNode(Markup.Escape(pathNode.Name));
-            foreach (PathNode childPath in pathNode.Children.OrderBy(c => c.Name))
+            foreach (PathNode childPath in pathNode.Children.OrderBy(c => c.Name, StringComparer.Ordinal))
             {
                 Walk(childTree, childPath);
             }
