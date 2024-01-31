@@ -6,7 +6,10 @@ namespace Verify.Nupkg.Tests;
 public abstract class TestBase
 {
     [ModuleInitializer]
-    public static void Initialize() => VerifyNupkg.Initialize();
+    public static void Initialize()
+    {
+        VerifyNupkg.Initialize();
+    }
 
     protected ITestOutputHelper Output { get; private set; }
     protected string PackagePath { get; private set; }

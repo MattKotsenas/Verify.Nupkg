@@ -18,6 +18,10 @@ public Task VerifyNupkgFile()
 {
     string packagePath = "path/to/package.nupkg";
 
-    return VerifyFile(packagePath);
+    VerifySettings settings = new();
+    settings.UseUniqueDirectory(); // Optional; group files into a directory
+    settings.ScrubNuspec(); // Scrub commit and other volatile information from nuspec
+
+    return VerifyFile(packagePath, settings);
 }
 ```

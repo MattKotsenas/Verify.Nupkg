@@ -1,3 +1,4 @@
+using VerifyTests;
 using Xunit.Abstractions;
 
 namespace Verify.Nupkg.Tests;
@@ -11,6 +12,10 @@ public class CustomConverterTests : TestBase
     [Fact]
     public Task CustomConverterIsUsed()
     {
-        return VerifyFile(PackagePath);
+        VerifySettings settings = new();
+        settings.UseUniqueDirectory();
+        settings.ScrubNuspec();
+
+        return VerifyFile(PackagePath, settings);
     }
 }
