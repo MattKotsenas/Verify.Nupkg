@@ -4,6 +4,7 @@
     <id>SamplePackage</id>
     <version>*****</version>
     <authors>SamplePackage</authors>
+    <readme>README.md</readme>
     <description>Package Description</description>
     <repository type="git" commit="****************************************" />
     <dependencies>
