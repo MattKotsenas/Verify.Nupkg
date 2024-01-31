@@ -1,0 +1,11 @@
+<Project>
+
+  <PropertyGroup>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+  </PropertyGroup>
+
+  <Import Project="build/targets/CodeAnalysis.props" />
+  <!-- TODO: Add this back -->
+  <!-- <Import Project="build/targets/ReproducibleBuilds.props" /> -->
+  <Import Project="build/targets/Artifacts.props" />
+</Project>
