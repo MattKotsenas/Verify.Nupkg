@@ -12,7 +12,8 @@ public class NupkgDiffSettings
     public static readonly IReadOnlyCollection<Regex> DefaultExcludedFiles = new List<Regex>
     {
         new(@"^\[Content_Types\].xml$"),
-        new(@"\.psmdcp$")
+        new(@"\.psmdcp$"),
+        new(@"^_rels[/\\].rels$")
     };
 
     /// <summary>

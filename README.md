@@ -14,7 +14,7 @@ Here's an example of the diff that results from adding a README to the package:
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>SamplePackage</id>
-    <version>*****</version>
+    <version>********</version>
     <authors>SamplePackage</authors>
 +    <readme>README.md</readme>
     <description>Package Description</description>
@@ -30,12 +30,12 @@ Here's an example of the diff that results from adding a README to the package:
 /
 +|-- README.md
 |-- SamplePackage.nuspec
-|-- _rels
-|   |-- .rels
 |-- lib
     |-- net8.0
         |-- SamplePackage.dll
 ```
+
+If you want to verify / avoid breaking API changes, check out [Microsoft.CodeAnalysis.PublicApiAnalyzers](https://github.com/dotnet/roslyn-analyzers?tab=readme-ov-file#microsoftcodeanalysispublicapianalyzers).
 
 ## Usage
 
@@ -63,8 +63,12 @@ public Task VerifyNupkgFile()
 
 #### Excluding files
 
-By default, `[Content_Types].xml` and the `.psmdcp` files are excluded from the directory listing baseline. If you'd
-to customize the file exclusion list, use `VerifySettings.AddNupkgDiffSettings()`.
+By default, the following viles are excluded from the directory listing baseline:
+- `[Content_Types].xml`
+- `.psmdcp`
+- `_rels/.rels`
+
+If you'd to customize the file exclusion list, use `VerifySettings.AddNupkgDiffSettings()`.
 
 ```csharp
 VerifySettings settings = new();

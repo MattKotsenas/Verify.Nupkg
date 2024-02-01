@@ -19,7 +19,7 @@ internal class NuspecScrubber
         if (match.Success)
         {
             string commit = match.Groups[1].Value;
-            string replacement = new('*', commit.Length);
+            string replacement = new('*', count: 40); // Length chosen because it's the standard length of a git SHA. Any number will work, but it should be consistent.
 
             return line.Replace(commit, replacement);
         }
@@ -39,7 +39,7 @@ internal class NuspecScrubber
         if (match.Success)
         {
             string version = match.Groups[1].Value;
-            string replacement = new('*', version.Length);
+            string replacement = new('*', count: 8); // Length chosen because it looks nice in diffs. Any number will work, but it should be consistent.
 
             return line.Replace(version, replacement);
         }
