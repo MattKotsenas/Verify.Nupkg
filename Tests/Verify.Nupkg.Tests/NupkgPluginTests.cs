@@ -27,11 +27,7 @@ public class NupkgPluginTests : TestBase
         settings.ScrubNuspec();
         settings.AddNupkgDiffSettings(settings =>
         {
-            settings.ExcludedFiles = new List<Regex>
-            {
-                new(@"\.psmdcp$"),
-                new(@"\.nuspec$")
-            };
+            settings.ExcludedFiles = [new(@"\.psmdcp$"), new(@"\.nuspec$")];
         });
 
         return VerifyFile(PackagePath, settings);

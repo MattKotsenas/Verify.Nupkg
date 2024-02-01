@@ -2,6 +2,41 @@
 
 Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of [NuGet .nupkg](https://learn.microsoft.com/en-us/nuget/what-is-nuget) files.
 
+The plugin does not do a naive package comparison, as that would cause a large amount of verification churn. Instead,
+the contents of the .nuspec file are verified, along with a tree view of the package files.
+
+Here's an example of the diff that results from adding a README to the package:
+
+```diff
+--- a/manifest.verified.nuspec
++++ b/manifest.verified.nuspec
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SamplePackage</id>
+    <version>*****</version>
+    <authors>SamplePackage</authors>
++    <readme>README.md</readme>
+    <description>Package Description</description>
+    <repository type="git" commit="****************************************" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+</package>
+
+--- a/contents.verified.txt
++++ b/contents.verified.txt
+/
++|-- README.md
+|-- SamplePackage.nuspec
+|-- _rels
+|   |-- .rels
+|-- lib
+    |-- net8.0
+        |-- SamplePackage.dll
+```
+
 ## Usage
 
 ```csharp
@@ -25,3 +60,30 @@ public Task VerifyNupkgFile()
     return VerifyFile(packagePath, settings);
 }
 ```
+
+#### Excluding files
+
+By default, `[Content_Types].xml` and the `.psmdcp` files are excluded from the directory listing baseline. If you'd
+to customize the file exclusion list, use `VerifySettings.AddNupkgDiffSettings()`.
+
+```csharp
+VerifySettings settings = new();
+settings.AddNupkgDiffSettings(settings =>
+{
+    settings.ExcludedFiles = [new Regex(@"\.psmdcp$"), new Regex(@"^\[Content_Types\].xml$")];
+});
+```
+
+### Custom scrubbers
+
+.nuspec files often contain sources of verfication churn. Use `VerifierSettings.ScrubNuspec()` like this:
+
+```csharp
+VerifySettings settings = new();
+settings.ScrubNuspec();
+```
+
+which itself is a convenience method for `ScrubNuspecVersion()` and `ScrubNuspecCommit()`. Feel free to use them
+separately if you'd like to verify either of these values.
+
+// TODO: Publish NuGet package w/ icon
