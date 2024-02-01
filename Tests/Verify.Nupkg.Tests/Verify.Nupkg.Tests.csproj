@@ -25,10 +25,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <ProjectReference Include="../SamplePackage/SamplePackage.csproj">
-      <Private>false</Private>
-      <ExcludeAssets>all</ExcludeAssets>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+      <UndefineProperties>TargetFramework</UndefineProperties>
+      <ExcludeAssets>all</ExcludeAssets>
     </ProjectReference>
     <ProjectReference Include="..\..\Verify.Nupkg\Verify.Nupkg.csproj" />
   </ItemGroup>
