@@ -1,4 +1,5 @@
 ﻿using Spectre.Console;
+using Spectre.Console.Rendering;
 using Spectre.Console.Testing;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
@@ -47,7 +48,7 @@ internal static class ZipArchiveExtensions
         // Create our Tree root and skip the dummy TreeNode from above
         Tree tree = new("/")
         {
-            Guide = TreeGuide.Ascii
+            Guide = new DiffableTreeGuide()
         };
         tree.AddNodes(tn.Nodes);
 
@@ -66,6 +67,20 @@ internal static class ZipArchiveExtensions
             {
                 Walk(childTree, childPath);
             }
+        }
+    }
+
+    private class DiffableTreeGuide : TreeGuide
+    {
+        public override string GetPart(TreeGuidePart part)
+        {
+            // Using `End` causes diff noise, so use `Fork` instead
+            if (part == TreeGuidePart.End)
+            {
+                part = TreeGuidePart.Fork;
+            }
+
+            return Ascii.GetPart(part);
         }
     }
 }

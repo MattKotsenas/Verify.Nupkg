@@ -2,7 +2,7 @@
 |-- README.md
 |-- [Content_Types].xml
 |-- _rels
-|   `-- .rels
-`-- lib
-    `-- net8.0
-        `-- SamplePackage.dll
+|   |-- .rels
+|-- lib
+    |-- net8.0
+        |-- SamplePackage.dll
