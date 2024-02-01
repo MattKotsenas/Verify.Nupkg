@@ -35,7 +35,10 @@ Here's an example of the diff that results from adding a README to the package:
         |-- SamplePackage.dll
 ```
 
-If you want to verify / avoid breaking API changes, check out [Microsoft.CodeAnalysis.PublicApiAnalyzers](https://github.com/dotnet/roslyn-analyzers?tab=readme-ov-file#microsoftcodeanalysispublicapianalyzers).
+Verifying package structure is part of an overall solution to prevent accidental package breaks. If you want to verify /
+avoid breaking API changes, check out [Microsoft.CodeAnalysis.PublicApiAnalyzers](https://github.com/dotnet/roslyn-analyzers?tab=readme-ov-file#microsoftcodeanalysispublicapianalyzers).
+If you want to follow packing best practices (validating a README, reproducible builds, etc.) check out
+[meziantou's blog post](https://www.meziantou.net/ensuring-best-practices-for-nuget-packages.htm).
 
 ## Usage
 
