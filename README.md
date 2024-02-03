@@ -66,7 +66,7 @@ public Task VerifyNupkgFile()
 
 #### Excluding files
 
-By default, the following viles are excluded from the directory listing baseline:
+By default, the following files are excluded from the directory listing baseline:
 - `[Content_Types].xml`
 - `.psmdcp`
 - `_rels/.rels`
