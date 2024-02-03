@@ -83,7 +83,7 @@ settings.AddNupkgDiffSettings(settings =>
 
 ### Custom scrubbers
 
-.nuspec files often contain sources of verfication churn. Use `VerifierSettings.ScrubNuspec()` like this:
+.nuspec files often contain sources of verification churn. Use `VerifierSettings.ScrubNuspec()` like this:
 
 ```csharp
 VerifySettings settings = new();
