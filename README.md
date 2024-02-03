@@ -2,7 +2,7 @@
 
 Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of [NuGet .nupkg](https://learn.microsoft.com/en-us/nuget/what-is-nuget) files.
 
-The plugin does not do a naive package comparison, as that would cause a large amount of verification churn. Instead,
+The plugin does not do a naive binary comparison, as that would cause a large amount of verification churn. Instead,
 the contents of the .nuspec file are verified, along with a tree view of the package files.
 
 Here's an example of the diff that results from adding a README to the package:
