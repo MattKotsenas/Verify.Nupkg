@@ -9,12 +9,12 @@ public class NupkgDiffSettings
 {
     internal static readonly string ContextKey = "NupkgDiffSettings";
 
-    public static readonly IReadOnlyCollection<Regex> DefaultExcludedFiles = new List<Regex>
-    {
+    public static readonly IReadOnlyCollection<Regex> DefaultExcludedFiles =
+    [
         new(@"^\[Content_Types\].xml$"),
         new(@"\.psmdcp$"),
         new(@"^_rels[/\\].rels$")
-    };
+    ];
 
     /// <summary>
     /// Gets regular expressions to use to exclude files from the diff.
