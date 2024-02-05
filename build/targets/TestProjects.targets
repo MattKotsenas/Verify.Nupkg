@@ -1,0 +1,13 @@
+<Project>
+  <Choose>
+    <When Condition="'$(IsTestProject)' == 'true'">
+
+      <PropertyGroup>
+        <!-- Enable test logging to TRX files and place them in the artifacts directory -->
+        <VSTestLogger>trx%3bLogFileName=$(MSBuildProjectName).trx</VSTestLogger>
+        <VSTestResultsDirectory Condition="'$(VSTestResultsDirectory)' == ''">$(ArtifactsTestResultsPath)/$(TargetFramework)</VSTestResultsDirectory>
+      </PropertyGroup>
+
+    </When>
+  </Choose>
+</Project>

@@ -49,7 +49,7 @@ internal class PackagePathLocator
             throw new Exception("Assembly metadata 'BuildConfiguration' is null.");
         }
 
-        string result = Path.Combine(artifactsPath, "package", buildConfiguration);
+        string result = Path.Combine(artifactsPath, "package", buildConfiguration.ToLowerInvariant()); // Build configuration is normalized to lower case when using artifacts
 
         if (!Directory.Exists(result))
         {

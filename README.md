@@ -1,5 +1,7 @@
 # <img src='icon.png' height='30px'> Verify.Nupkg
 
+[![Build status](https://github.com/MattKotsenas/Verify.Nupkg/actions/workflows/main.yml/badge.svg)](https://github.com/MattKotsenas/Verify.Nupkg/actions/workflows/main.yml)
+
 Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of [NuGet .nupkg](https://learn.microsoft.com/en-us/nuget/what-is-nuget) files.
 
 The plugin does not do a naive binary comparison, as that would cause a large amount of verification churn. Instead,

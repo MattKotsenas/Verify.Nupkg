@@ -2,10 +2,11 @@
 
   <PropertyGroup>
     <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <ArtifactsPath>$(RepoRoot)/artifacts/</ArtifactsPath>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Import Project="build/targets/CodeAnalysis.props" />
   <Import Project="build/targets/ReproducibleBuilds.props" />
-  <Import Project="build/targets/Artifacts.props" />
+  <Import Project="build/targets/TestProjects.props" />
 </Project>
