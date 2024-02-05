@@ -1,0 +1,7 @@
+﻿/
+|-- Verify.Nupkg.nuspec
+|-- lib
+    |-- net472
+    |   |-- Verify.Nupkg.dll
+    |-- net6.0
+        |-- Verify.Nupkg.dll

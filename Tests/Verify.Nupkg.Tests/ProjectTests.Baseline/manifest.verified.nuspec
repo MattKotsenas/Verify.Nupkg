@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Verify.Nupkg</id>
+    <version>********</version>
+    <authors>Verify.Nupkg</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="****************************************" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="Spectre.Console.Testing" version="0.48.0" exclude="Build,Analyzers" />
+        <dependency id="Verify" version="23.0.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0">
+        <dependency id="Spectre.Console.Testing" version="0.48.0" exclude="Build,Analyzers" />
+        <dependency id="Verify" version="23.0.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.IO.Compression" targetFramework=".NETFramework4.7.2" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

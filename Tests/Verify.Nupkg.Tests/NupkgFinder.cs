@@ -3,7 +3,7 @@
 /// <summary>
 /// Extension methods to help find .nupkg files under a given root directory.
 /// </summary>
-public static class NupkgFinder
+internal static class NupkgFinder
 {
     public static IReadOnlyCollection<FileInfo> Find(string root)
     {
@@ -24,7 +24,7 @@ public static class NupkgFinder
         FileInfo package = packages
             .Where(p => p.Name.StartsWith($"{name}."))
             .OrderByDescending(p => p.LastAccessTimeUtc)
-            .First();
+            .FirstOrDefault() ?? throw new Exception($"Unabled to find package with name '{name}'");
 
         return (package, package.GetNuGetPackageVersion(name));
     }
