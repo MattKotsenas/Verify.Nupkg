@@ -1,4 +1,5 @@
 ﻿/
+|-- README.md
 |-- Verify.Nupkg.nuspec
 |-- lib
     |-- net472

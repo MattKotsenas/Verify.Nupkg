@@ -3,9 +3,15 @@
   <metadata>
     <id>Verify.Nupkg</id>
     <version>********</version>
-    <authors>Verify.Nupkg</authors>
-    <description>Package Description</description>
-    <repository type="git" commit="****************************************" />
+    <authors>https://github.com/MattKotsenas/Verify.Nupkg/graphs/contributors</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/MattKotsenas/Verify.Nupkg</projectUrl>
+    <description>Extends Verify (https://github.com/VerifyTests/Verify) to allow verification of NuGet .nupkg files.</description>
+    <copyright>Copyright 2024. All rights reserved</copyright>
+    <tags>NuGet, Nupkg, Verify</tags>
+    <repository type="git" url="https://github.com/MattKotsenas/Verify.Nupkg" commit="****************************************" />
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="Spectre.Console.Testing" version="0.48.0" exclude="Build,Analyzers" />
