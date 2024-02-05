@@ -5,7 +5,7 @@ namespace VerifyTests;
 
 public static class VerifyNupkg
 {
-    // NOTE: Do not change the name of the `Initialize` method or `Initalized` property
+    // NOTE: Do not change the name of the `Initialize` method or `Initialized` property
     // as it is used via reflection by VerifierSettings.InitializePlugins().
 
     public static bool Initialized { get; private set; }

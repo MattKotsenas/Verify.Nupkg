@@ -66,7 +66,7 @@ public Task VerifyNupkgFile()
 
 #### Excluding files
 
-By default, the following viles are excluded from the directory listing baseline:
+By default, the following files are excluded from the directory listing baseline:
 - `[Content_Types].xml`
 - `.psmdcp`
 - `_rels/.rels`
@@ -83,7 +83,7 @@ settings.AddNupkgDiffSettings(settings =>
 
 ### Custom scrubbers
 
-.nuspec files often contain sources of verfication churn. Use `VerifierSettings.ScrubNuspec()` like this:
+.nuspec files often contain sources of verification churn. Use `VerifierSettings.ScrubNuspec()` like this:
 
 ```csharp
 VerifySettings settings = new();

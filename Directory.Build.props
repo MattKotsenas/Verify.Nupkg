@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Import Project="build/targets/CodeAnalysis.props" />

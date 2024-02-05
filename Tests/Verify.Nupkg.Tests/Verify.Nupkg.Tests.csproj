@@ -2,28 +2,17 @@
 
   <PropertyGroup>
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
-
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
-    <PackageReference Include="Polyfill" Version="2.1.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Polyfill" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Verify.Xunit" Version="23.0.1" />
     <PackageReference Include="xunit" Version="2.6.6" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="6.0.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" PrivateAssets="all" />
+    <PackageReference Include="coverlet.collector" Version="6.0.0" PrivateAssets="all" />
     <ProjectReference Include="../SamplePackage/SamplePackage.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>

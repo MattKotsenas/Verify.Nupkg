@@ -12,14 +12,14 @@ public static class NupkgFinder
         return packages.Select(p => new FileInfo(p)).ToArray();
     }
 
-    public static Uri AsFeedUri(this IReadOnlyCollection<FileInfo> packages)
+    public static Uri AsFeedUri(this IEnumerable<FileInfo> packages)
     {
         string[] directories = packages.Select(p => p.Directory!.FullName).Distinct().ToArray();
 
         return new Uri(directories.Single());
     }
 
-    public static (FileInfo Package, string Version) LatestWithName(this IReadOnlyCollection<FileInfo> packages, string name)
+    public static (FileInfo Package, string Version) LatestWithName(this IEnumerable<FileInfo> packages, string name)
     {
         FileInfo package = packages
             .Where(p => p.Name.StartsWith($"{name}."))

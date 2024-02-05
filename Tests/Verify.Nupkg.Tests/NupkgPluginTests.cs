@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Xunit.Abstractions;
 
 namespace Verify.Nupkg.Tests;
