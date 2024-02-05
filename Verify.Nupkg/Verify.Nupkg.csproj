@@ -12,6 +12,7 @@
     <PackageProjectUrl>https://github.com/MattKotsenas/Verify.Nupkg</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MattKotsenas/Verify.Nupkg</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <None Include="$(RepoRoot)/README.md" Pack="true" PackagePath="\" />
+    <None Include="$(RepoRoot)/icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

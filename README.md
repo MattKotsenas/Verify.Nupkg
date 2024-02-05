@@ -1,4 +1,4 @@
-# Verify.Nupkg
+# <img src='icon.png' height='30px'> Verify.Nupkg
 
 Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of [NuGet .nupkg](https://learn.microsoft.com/en-us/nuget/what-is-nuget) files.
 
@@ -93,4 +93,7 @@ settings.ScrubNuspec();
 which itself is a convenience method for `ScrubNuspecVersion()` and `ScrubNuspecCommit()`. Feel free to use them
 separately if you'd like to verify either of these values.
 
-// TODO: Publish NuGet package w/ icon
+## Icon
+
+[Package](https://thenounproject.com/icon/package-1599428/) designed by [sandra](https://thenounproject.com/meisandra0583/)
+from [The Noun Project](https://thenounproject.com).

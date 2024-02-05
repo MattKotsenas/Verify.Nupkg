@@ -1,6 +1,7 @@
 ﻿/
 |-- README.md
 |-- Verify.Nupkg.nuspec
+|-- icon.png
 |-- lib
     |-- net472
     |   |-- Verify.Nupkg.dll
