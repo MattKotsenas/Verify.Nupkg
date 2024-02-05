@@ -3,11 +3,17 @@ using Verify.Nupkg;
 
 namespace VerifyTests;
 
+/// <summary>
+/// Plugin for Verify to handle .nupkg files.
+/// </summary>
 public static class VerifyNupkg
 {
     // NOTE: Do not change the name of the `Initialize` method or `Initialized` property
     // as it is used via reflection by VerifierSettings.InitializePlugins().
 
+    /// <summary>
+    /// Gets if the plugin has been initialized or not.
+    /// </summary>
     public static bool Initialized { get; private set; }
 
     /// <summary>

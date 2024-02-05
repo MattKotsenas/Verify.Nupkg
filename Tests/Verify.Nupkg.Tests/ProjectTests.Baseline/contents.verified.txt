@@ -5,5 +5,7 @@
 |-- lib
     |-- net472
     |   |-- Verify.Nupkg.dll
+    |   |-- Verify.Nupkg.xml
     |-- net6.0
         |-- Verify.Nupkg.dll
+        |-- Verify.Nupkg.xml

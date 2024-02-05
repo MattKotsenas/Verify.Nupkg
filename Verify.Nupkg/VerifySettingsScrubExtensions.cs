@@ -1,5 +1,8 @@
 ﻿namespace Verify.Nupkg;
 
+/// <summary>
+/// Extension methods that scrub common changes from nupkg files.
+/// </summary>
 public static class VerifySettingsScrubExtensions
 {
     private static readonly NuspecScrubber _scrubber = new();
