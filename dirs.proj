@@ -1,7 +1,0 @@
-<Project Sdk="Microsoft.Build.Traversal">
-  <ItemGroup>
-    <ProjectReference Include="Verify.Nupkg/Verify.Nupkg.csproj" />
-    <ProjectReference Include="Tests/SamplePackage/SamplePackage.csproj" />
-    <ProjectReference Include="Tests/Verify.Nupkg.Tests/Verify.Nupkg.Tests.csproj" />
-  </ItemGroup>
-</Project>
