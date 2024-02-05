@@ -9,4 +9,5 @@
   <Import Project="build/targets/CodeAnalysis.props" />
   <Import Project="build/targets/ReproducibleBuilds.props" />
   <Import Project="build/targets/TestProjects.props" />
+  <Import Project="build/targets/Versioning.props" />
 </Project>

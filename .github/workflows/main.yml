@@ -5,6 +5,12 @@ on:
   push:
     branches:
       - main
+  workflow_call:
+    inputs:
+      for-public-release:
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -33,7 +39,7 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release --binaryLogger:./artifacts/logs/release/build.release.binlog
+      run: dotnet build --no-restore --configuration Release /p:PublicRelease=${{ inputs.for-public-release }} /bl:./artifacts/logs/release/build.release.binlog
 
     - name: Test
       run: dotnet test --no-build --configuration Release
