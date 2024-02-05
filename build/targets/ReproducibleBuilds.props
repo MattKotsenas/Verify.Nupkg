@@ -1,0 +1,10 @@
+<Project>
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <!-- TODO: Re-enable once https://github.com/dotnet/reproducible-builds/pull/33 is addressed -->
+  <!-- <Sdk Name="DotNet.ReproducibleBuilds.Isolated" Version="1.1.1" /> -->
+
+</Project>
