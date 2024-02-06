@@ -1,0 +1,6 @@
+# Opt-in to improved MSBuild scheduling.
+# See https://github.com/dotnet/msbuild/blob/main/documentation/specs/static-graph.md
+-graphBuild
+
+# Opt-in to the new terminal logger
+/tl:auto
