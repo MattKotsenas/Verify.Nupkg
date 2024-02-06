@@ -25,7 +25,10 @@ jobs:
           path: packages
           pattern: packages-windows-*
           merge-multiple: true
-      - name: Verify artifact download
-        run: ls -R packages
-
-# TODO: Add nuget push
+      - name: Publish NuGet package
+        shell: pwsh
+        run: |
+          foreach ($file in (Get-ChildItem ./packages/release -Recurse -Include *.nupkg)) {
+            echo "NuGet publish for file: '$file'"
+            dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          }
