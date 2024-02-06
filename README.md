@@ -1,6 +1,10 @@
-# <img src='icon.png' height='30px'> Verify.Nupkg
+![Icon](https://raw.githubusercontent.com/MattKotsenas/Verify.Nupkg/main/icon.png)
+
+# Verify.Nupkg
 
 [![Build status](https://github.com/MattKotsenas/Verify.Nupkg/actions/workflows/main.yml/badge.svg)](https://github.com/MattKotsenas/Verify.Nupkg/actions/workflows/main.yml)
+![Nuget](https://img.shields.io/nuget/v/Verify.Nupkg)
+[![Downloads](https://img.shields.io/nuget/dt/Verify.Nupkg)](https://nuget.org/packages/Verify.Nupkg)
 
 Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of [NuGet .nupkg](https://learn.microsoft.com/en-us/nuget/what-is-nuget) files.
 
