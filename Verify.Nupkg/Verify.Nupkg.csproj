@@ -10,7 +10,6 @@
     <Description>Extends Verify (https://github.com/VerifyTests/Verify) to allow verification of NuGet .nupkg files.</Description>
     <Copyright>Copyright 2024. All rights reserved</Copyright>
     <PackageProjectUrl>https://github.com/MattKotsenas/Verify.Nupkg</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/MattKotsenas/Verify.Nupkg</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

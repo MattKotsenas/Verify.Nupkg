@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace Verify.Nupkg;
 
@@ -43,6 +44,41 @@ internal class NuspecScrubber
 
             return line.Replace(version, replacement);
         }
+
+        return line;
+    }
+
+    public string ScrubRepositoryUrl(string line)
+    {
+        string leading = line.GetLeadingWhiteSpace();
+
+        if (!XElementExtensions.TryParseForScrubbing(line, out XElement? element))
+        {
+            return line;
+        }
+
+        XAttribute? urlAttribute = element.Attribute("url");
+
+        if (urlAttribute is null)
+        {
+            return line;
+        }
+
+        UriBuilder url = new(urlAttribute.Value);
+
+        // Exclude non-GitHub URLs, and other formats like SSH
+        if (!(url.Host == "github.com" && url.Scheme == "https"))
+        {
+            return line;
+        }
+
+        if (!url.Path.EndsWith(".git"))
+        {
+            url.Path += ".git";
+            urlAttribute.SetValue(url.Uri.ToString());
+        }
+
+        line = leading + element.ToString(SaveOptions.DisableFormatting);
 
         return line;
     }
