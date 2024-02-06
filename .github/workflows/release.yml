@@ -1,0 +1,31 @@
+name: Release publish
+
+on:
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
+  release:
+    types:
+      - published # Run the workflow when a new GitHub release is published
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/main.yml
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download packages
+        uses: actions/download-artifact@v4
+        with:
+          path: packages
+          pattern: packages-windows-*
+          merge-multiple: true
+      - name: Verify artifact download
+        run: ls -R packages
+
+# TODO: Add nuget push

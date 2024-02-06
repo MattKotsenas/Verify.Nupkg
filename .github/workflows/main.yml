@@ -5,12 +5,7 @@ on:
   push:
     branches:
       - main
-  workflow_call:
-    inputs:
-      for-public-release:
-        required: false
-        default: false
-        type: boolean
+  workflow_call: # Allow to be called from the release workflow
 
 permissions:
   contents: read
@@ -39,7 +34,7 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release /p:PublicRelease=${{ inputs.for-public-release }} /bl:./artifacts/logs/release/build.release.binlog
+      run: dotnet build --no-restore --configuration Release /bl:./artifacts/logs/release/build.release.binlog
 
     - name: Test
       run: dotnet test --no-build --configuration Release
@@ -64,7 +59,7 @@ jobs:
     - name: Upload packages
       uses: actions/upload-artifact@v4
       with:
-        name: nuget-packages-${{ matrix.os }}
+        name: packages-${{ matrix.os }}
         path: |
           ./artifacts/package
           !./artifacts/package/**/SamplePackage.*.nupkg
