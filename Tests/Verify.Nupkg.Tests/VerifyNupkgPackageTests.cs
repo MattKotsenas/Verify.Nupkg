@@ -2,9 +2,9 @@
 
 namespace Verify.Nupkg.Tests;
 
-public class ProjectTests : TestBase
+public class VerifyNupkgPackageTests : PrebuiltArtifactsTestBase
 {
-    public ProjectTests(ITestOutputHelper output) : base(output, "Verify.Nupkg")
+    public VerifyNupkgPackageTests(ITestOutputHelper output) : base(output, "Verify.Nupkg")
     {
     }
 

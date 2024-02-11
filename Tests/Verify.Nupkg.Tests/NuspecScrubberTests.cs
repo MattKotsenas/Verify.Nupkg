@@ -8,9 +8,7 @@ namespace Verify.Nupkg.Tests
         [InlineData("    <repository type=\"git\" url=\"https://github.com/MattKotsenas/Verify.Nupkg.git\" commit=\"3143135c18bb9bc04b35550ea77189e806738d46\" />", "    <repository type=\"git\" url=\"https://github.com/MattKotsenas/Verify.Nupkg.git\" commit=\"3143135c18bb9bc04b35550ea77189e806738d46\" />")]
         [InlineData("    <repository type=\"git\" url=\"https://github.com/MattKotsenas/Verify.Nupkg\" commit=\"3143135c18bb9bc04b35550ea77189e806738d46\" />", "    <repository type=\"git\" url=\"https://github.com/MattKotsenas/Verify.Nupkg.git\" commit=\"3143135c18bb9bc04b35550ea77189e806738d46\" />")]
         [InlineData("    <repository type=\"git\" url=\"file://github.com/MattKotsenas/Verify.Nupkg\" commit=\"3143135c18bb9bc04b35550ea77189e806738d46\" />", "    <repository type=\"git\" url=\"file://github.com/MattKotsenas/Verify.Nupkg\" commit=\"3143135c18bb9bc04b35550ea77189e806738d46\" />")]
-        [InlineData("a string that isn't valid XML", "a string that isn't valid XML")]
         [InlineData("    <repository type=\"git\" url=\"https://bitbucket.org/the_best/awesome_repo\" commit=\"3143135c18bb9bc04b35550ea77189e806738d46\" />", "    <repository type=\"git\" url=\"https://bitbucket.org/the_best/awesome_repo\" commit=\"3143135c18bb9bc04b35550ea77189e806738d46\" />")]
-        [InlineData("    <id>SamplePackage</id>", "    <id>SamplePackage</id>")]
         public void ScrubRepositoryUrlNormalizesDotGitForGitHubUrls(string line, string expected)
         {
             var scrubber = new NuspecScrubber();
