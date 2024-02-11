@@ -2,9 +2,9 @@ using Xunit.Abstractions;
 
 namespace Verify.Nupkg.Tests;
 
-public class NupkgPluginTests : TestBase
+public class NupkgPluginTests : TestBase2
 {
-    public NupkgPluginTests(ITestOutputHelper output) : base(output, "SamplePackage")
+    public NupkgPluginTests(ITestOutputHelper output)// : base(output, "SamplePackage")
     {
     }
 
