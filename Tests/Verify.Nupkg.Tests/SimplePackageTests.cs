@@ -1,8 +1,8 @@
 namespace Verify.Nupkg.Tests;
 
-public class SamplePackageTests
+public class SimplePackageTests
 {
-    private string _package = SamplePackages.Instance.SimplePackage.Value.FullName;
+    private string _simplePackage = SamplePackages.Instance.SimplePackage.Value.FullName;
 
     [Fact]
     public Task BasicTest()
@@ -11,7 +11,7 @@ public class SamplePackageTests
         settings.UseUniqueDirectory();
         settings.ScrubNuspec();
 
-        return VerifyFile(_package, settings);
+        return VerifyFile(_simplePackage, settings);
     }
 
     [Fact]
@@ -25,6 +25,6 @@ public class SamplePackageTests
             settings.ExcludedFiles = [new(@"\.psmdcp$"), new(@"\.nuspec$")];
         });
 
-        return VerifyFile(_package, settings);
+        return VerifyFile(_simplePackage, settings);
     }
 }

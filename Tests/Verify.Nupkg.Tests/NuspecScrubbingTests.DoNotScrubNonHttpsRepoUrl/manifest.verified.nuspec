@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>PackageWithoutRepoHttps</id>
+    <version>********</version>
+    <authors>PackageWithoutRepoHttps</authors>
+    <description>Package Description</description>
+    <repository type="git" url="http://github.com/MattKotsenas/Verify.Nupkg" commit="****************************************" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+</package>
