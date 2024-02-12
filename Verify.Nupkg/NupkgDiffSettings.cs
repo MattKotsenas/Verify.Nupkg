@@ -7,7 +7,7 @@ namespace VerifyTests;
 /// </summary>
 public class NupkgDiffSettings
 {
-    internal static readonly string ContextKey = "NupkgDiffSettings";
+    internal static string ContextKey { get; } = "NupkgDiffSettings";
 
     /// <summary>
     /// Gets the default regular expressions to use to exclude files from the diff.

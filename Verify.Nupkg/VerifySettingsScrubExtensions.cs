@@ -5,8 +5,6 @@
 /// </summary>
 public static class VerifySettingsScrubExtensions
 {
-    private static readonly NuspecScrubber _scrubber = new();
-
     /// <summary>
     /// Scrub the nuspec file of common changes.
     /// </summary>
@@ -18,11 +16,14 @@ public static class VerifySettingsScrubExtensions
     /// - Package version
     /// - Commit hash
     /// </remarks>
-    public static void ScrubNuspec(this VerifySettings settings)
+    /// <returns>The <see cref="VerifySettings"/> for chaining.</returns>
+    public static VerifySettings ScrubNuspec(this VerifySettings settings)
     {
         settings.ScrubNuspecVersion();
         settings.ScrubNuspecCommit();
         settings.ScrubNuspecRepositoryUrl();
+
+        return settings;
     }
 
     /// <summary>
@@ -39,6 +40,8 @@ public static class VerifySettingsScrubExtensions
     /// <returns>The <see cref="SettingsTask"/> for chaining.</returns>
     public static SettingsTask ScrubNuspec(this SettingsTask settings)
     {
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
         settings.CurrentSettings.ScrubNuspec();
         return settings;
     }
@@ -53,9 +56,14 @@ public static class VerifySettingsScrubExtensions
     /// In some scenarios, package versions are frequent and obvious changes. In these cases, scrub the version
     /// to reduce the noise in the diff.
     /// </remarks>
-    public static void ScrubNuspecVersion(this VerifySettings settings)
+    /// <returns>The <see cref="VerifySettings"/> for chaining.</returns>
+    public static VerifySettings ScrubNuspecVersion(this VerifySettings settings)
     {
-        settings.ScrubLinesWithReplace(extension: "nuspec", line => _scrubber.ScrubVersion(line));
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
+        settings.AddScrubber(extension: "nuspec", sb => new VersionScrubber().Scrub(sb));
+
+        return settings;
     }
 
     /// <summary>
@@ -71,6 +79,8 @@ public static class VerifySettingsScrubExtensions
     /// <returns>The <see cref="SettingsTask"/> for chaining.</returns>
     public static SettingsTask ScrubNuspecVersion(this SettingsTask settings)
     {
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
         settings.CurrentSettings.ScrubNuspecVersion();
         return settings;
     }
@@ -85,9 +95,14 @@ public static class VerifySettingsScrubExtensions
     /// In some scenarios, the commit used in the package are frequent and obvious changes. In these cases, scrub the commit
     /// to reduce the noise in the diff.
     /// </remarks>
-    public static void ScrubNuspecCommit(this VerifySettings settings)
+    /// <returns>The <see cref="VerifySettings"/> for chaining.</returns>
+    public static VerifySettings ScrubNuspecCommit(this VerifySettings settings)
     {
-        settings.ScrubLinesWithReplace(extension: "nuspec", line => _scrubber.ScrubCommit(line));
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
+        settings.AddScrubber(extension: "nuspec", sb => new CommitScrubber().Scrub(sb));
+
+        return settings;
     }
 
     /// <summary>
@@ -103,8 +118,10 @@ public static class VerifySettingsScrubExtensions
     /// <returns>The <see cref="SettingsTask"/> for chaining.</returns>
     public static SettingsTask ScrubNuspecCommit(this SettingsTask settings)
     {
-         settings.CurrentSettings.ScrubNuspecCommit();
-         return settings;
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
+        settings.CurrentSettings.ScrubNuspecCommit();
+        return settings;
     }
 
     /// <summary>
@@ -117,9 +134,14 @@ public static class VerifySettingsScrubExtensions
     /// GitHub repository URLs can be optionally have a `.git` suffix. This method normalizes the URL to always end with .git
     /// to reduce the noise in the diff.
     /// </remarks>
-    public static void ScrubNuspecRepositoryUrl(this VerifySettings settings)
+    /// <returns>The <see cref="VerifySettings"/> for chaining.</returns>
+    public static VerifySettings ScrubNuspecRepositoryUrl(this VerifySettings settings)
     {
-        settings.ScrubLinesWithReplace(extension: "nuspec", line => _scrubber.ScrubRepositoryUrl(line));
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
+        settings.AddScrubber(extension: "nuspec", sb => new RepositoryUrlScrubber().Scrub(sb));
+
+        return settings;
     }
 
     /// <summary>
@@ -135,6 +157,8 @@ public static class VerifySettingsScrubExtensions
     /// <returns>The <see cref="SettingsTask"/> for chaining.</returns>
     public static SettingsTask ScrubNuspecRepositoryUrl(this SettingsTask settings)
     {
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
         settings.CurrentSettings.ScrubNuspecRepositoryUrl();
         return settings;
     }
