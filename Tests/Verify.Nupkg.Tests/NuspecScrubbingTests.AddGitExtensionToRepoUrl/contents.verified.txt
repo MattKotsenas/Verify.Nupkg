@@ -1,0 +1,6 @@
+﻿/
+|-- README.md
+|-- SimplePackage.nuspec
+|-- lib
+    |-- net8.0
+        |-- SimplePackage.dll

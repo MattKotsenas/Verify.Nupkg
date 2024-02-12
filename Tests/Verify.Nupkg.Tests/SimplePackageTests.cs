@@ -1,12 +1,8 @@
-using Xunit.Abstractions;
-
 namespace Verify.Nupkg.Tests;
 
-public class NupkgPluginTests : TestBase
+public class SimplePackageTests
 {
-    public NupkgPluginTests(ITestOutputHelper output) : base(output, "SamplePackage")
-    {
-    }
+    private string _simplePackage = SamplePackages.Instance.SimplePackage.Value.FullName;
 
     [Fact]
     public Task BasicTest()
@@ -15,7 +11,7 @@ public class NupkgPluginTests : TestBase
         settings.UseUniqueDirectory();
         settings.ScrubNuspec();
 
-        return VerifyFile(PackagePath, settings);
+        return VerifyFile(_simplePackage, settings);
     }
 
     [Fact]
@@ -29,6 +25,6 @@ public class NupkgPluginTests : TestBase
             settings.ExcludedFiles = [new(@"\.psmdcp$"), new(@"\.nuspec$")];
         });
 
-        return VerifyFile(PackagePath, settings);
+        return VerifyFile(_simplePackage, settings);
     }
 }

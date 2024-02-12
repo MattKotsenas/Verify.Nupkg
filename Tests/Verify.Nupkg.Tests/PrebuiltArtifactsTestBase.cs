@@ -1,20 +1,13 @@
-﻿using System.Runtime.CompilerServices;
-using Xunit.Abstractions;
+﻿using Xunit.Abstractions;
 
 namespace Verify.Nupkg.Tests;
 
-public abstract class TestBase
+public abstract class PrebuiltArtifactsTestBase
 {
-    [ModuleInitializer]
-    public static void Initialize()
-    {
-        VerifyNupkg.Initialize();
-    }
-
     protected ITestOutputHelper Output { get; private set; }
     protected string PackagePath { get; private set; }
 
-    protected TestBase(ITestOutputHelper output, string packageName)
+    protected PrebuiltArtifactsTestBase(ITestOutputHelper output, string packageName)
     {
         Output = output;
 

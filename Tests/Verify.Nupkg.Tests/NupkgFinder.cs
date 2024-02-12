@@ -23,7 +23,7 @@ internal static class NupkgFinder
     {
         FileInfo package = packages
             .Where(p => p.Name.StartsWith($"{name}."))
-            .OrderByDescending(p => p.LastAccessTimeUtc)
+            .OrderByDescending(p => p.LastWriteTimeUtc)
             .FirstOrDefault() ?? throw new Exception($"Unabled to find package with name '{name}'");
 
         return (package, package.GetNuGetPackageVersion(name));

@@ -1,6 +1,0 @@
-﻿/
-|-- README.md
-|-- SamplePackage.nuspec
-|-- lib
-    |-- net8.0
-        |-- SamplePackage.dll

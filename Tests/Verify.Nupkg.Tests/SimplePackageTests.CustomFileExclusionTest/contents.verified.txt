@@ -5,4 +5,4 @@
 |   |-- .rels
 |-- lib
     |-- net8.0
-        |-- SamplePackage.dll
+        |-- SimplePackage.dll
