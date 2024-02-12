@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Verify.Nupkg;
+namespace VerifyTests;
 
 /// <summary>
 /// Settings to control the behavior of <see cref="VerifyNupkg"/>.

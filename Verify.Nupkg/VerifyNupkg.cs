@@ -1,8 +1,4 @@
 ﻿using System.IO.Compression;
-using System.Runtime.CompilerServices;
-using Verify.Nupkg;
-
-[assembly: InternalsVisibleTo("Verify.Nupkg.Tests")]
 
 namespace VerifyTests;
 

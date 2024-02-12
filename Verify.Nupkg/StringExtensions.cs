@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Verify.Nupkg;
+namespace VerifyTests;
 
 internal static class StringExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-namespace Verify.Nupkg;
+namespace VerifyTests;
 
 internal class NuspecScrubber
 {

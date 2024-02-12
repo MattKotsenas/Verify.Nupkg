@@ -2,7 +2,7 @@
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Verify.Nupkg;
+namespace VerifyTests;
 
 internal static class XElementExtensions
 {

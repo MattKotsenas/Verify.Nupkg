@@ -1,4 +1,4 @@
-﻿namespace Verify.Nupkg;
+﻿namespace VerifyTests;
 
 /// <summary>
 /// Extension methods that scrub common changes from nupkg files.

@@ -1,4 +1,4 @@
-﻿namespace Verify.Nupkg;
+﻿namespace VerifyTests;
 
 /// <summary>
 /// Extension methods for <see cref="VerifySettings"/> to add <see cref="NupkgDiffSettings"/>.

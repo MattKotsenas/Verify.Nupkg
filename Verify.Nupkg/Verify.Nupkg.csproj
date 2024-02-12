@@ -13,6 +13,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RootNamespace>VerifyTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
