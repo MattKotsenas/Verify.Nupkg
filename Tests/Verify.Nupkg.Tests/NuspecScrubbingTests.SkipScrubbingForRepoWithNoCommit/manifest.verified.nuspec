@@ -1,0 +1,12 @@
+﻿<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>PackageWithoutRepoUrlOrCommit</id>
+    <version>********</version>
+    <authors>PackageWithoutRepoUrlOrCommit</authors>
+    <description>Package Description</description>
+    <repository type="git" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+</package>

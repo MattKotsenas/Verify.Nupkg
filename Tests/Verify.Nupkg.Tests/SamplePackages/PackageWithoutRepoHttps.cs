@@ -16,3 +16,15 @@ internal class PackageWithoutRepoHttps : PackageCreator
             .Property("RepositoryCommit", "0e4d1b598f350b3dc675018d539114d1328189ef");
     }
 }
+
+internal class PackageWithoutRepoUrlOrCommit : PackageCreator
+{
+    public override string Name => GetType().Name;
+
+    protected override ProjectCreator CreateCore(IDirectoryInfo workingDirectory)
+    {
+        return ProjectCreator.Templates.SdkCsproj()
+            .Property("TargetFramework", "net8.0")
+            .Property("RepositoryType", "git");
+    }
+}
