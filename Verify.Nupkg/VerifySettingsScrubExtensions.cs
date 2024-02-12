@@ -61,8 +61,7 @@ public static class VerifySettingsScrubExtensions
     {
         if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
 
-        settings.AddScrubber(extension: "nuspec", sb => new VersionScrubber().Scrub(sb));
-
+        settings.CreateOrUpdateNuspecScrubbers(new VersionScrubber());
         return settings;
     }
 
@@ -100,8 +99,7 @@ public static class VerifySettingsScrubExtensions
     {
         if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
 
-        settings.AddScrubber(extension: "nuspec", sb => new CommitScrubber().Scrub(sb));
-
+        settings.CreateOrUpdateNuspecScrubbers(new CommitScrubber());
         return settings;
     }
 
@@ -139,8 +137,7 @@ public static class VerifySettingsScrubExtensions
     {
         if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
 
-        settings.AddScrubber(extension: "nuspec", sb => new RepositoryUrlScrubber().Scrub(sb));
-
+        settings.CreateOrUpdateNuspecScrubbers(new RepositoryUrlScrubber());
         return settings;
     }
 
@@ -161,5 +158,22 @@ public static class VerifySettingsScrubExtensions
 
         settings.CurrentSettings.ScrubNuspecRepositoryUrl();
         return settings;
+    }
+
+    private static void CreateOrUpdateNuspecScrubbers(this VerifySettings settings, INuspecScrubber scrubber)
+    {
+        // Try get the list of scrubbers
+        if (!settings.Context.TryGetValue(NuspecScrubbers.ContextKey, out object? val))
+        {
+            // List not found; assume this is the first scrubber
+            val = new NuspecScrubbers();
+            settings.Context[NuspecScrubbers.ContextKey] = val;
+
+            // Add the main scrubber runner
+            settings.AddScrubber(extension: "nuspec", sb => new NuspecScrubberRunner(settings).Scrub(sb));
+        }
+
+        NuspecScrubbers? scrubbers = val as NuspecScrubbers ?? throw new($"Object '{NuspecScrubbers.ContextKey}' in context is not of type '{typeof(NuspecScrubbers)}'.");
+        scrubbers.Add(scrubber);
     }
 }

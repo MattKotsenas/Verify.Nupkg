@@ -2,9 +2,9 @@
 
 namespace VerifyTests;
 
-internal class RepositoryUrlScrubber : NuspecScrubberBase
+internal class RepositoryUrlScrubber : INuspecScrubber
 {
-    protected override void Scrub(XDocument document)
+    public void Scrub(XDocument document)
     {
         XElement[] repositoryElements = document.DescendantsAnyNS("repository").ToArray();
 

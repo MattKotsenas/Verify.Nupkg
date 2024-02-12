@@ -2,9 +2,9 @@
 
 namespace VerifyTests;
 
-internal class VersionScrubber : NuspecScrubberBase
+internal class VersionScrubber : INuspecScrubber
 {
-    protected override void Scrub(XDocument document)
+    public void Scrub(XDocument document)
     {
         XElement[] versionElements = document.DescendantsAnyNS("version").ToArray();
 
