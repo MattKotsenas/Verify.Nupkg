@@ -1,7 +1,7 @@
 ﻿<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>SimplePackage</id>
-    <version>********</version>
+    <version>1.0.0</version>
     <authors>SimplePackage</authors>
     <readme>README.md</readme>
     <description>Package Description</description>

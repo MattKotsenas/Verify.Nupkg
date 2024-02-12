@@ -27,4 +27,19 @@ public class SimplePackageTests
 
         return VerifyFile(_simplePackage, settings);
     }
+
+    [Fact]
+    public Task DoNotScrubVersionTest()
+    {
+        // In this test we intentionally _do not_ include the version scrubber
+        // to validate that only scrubbers we opt-in to are applied.
+
+        VerifySettings settings = new();
+        settings.UseUniqueDirectory();
+
+        settings.ScrubNuspecCommit();
+        settings.ScrubNuspecRepositoryUrl();
+
+        return VerifyFile(_simplePackage, settings);
+    }
 }
