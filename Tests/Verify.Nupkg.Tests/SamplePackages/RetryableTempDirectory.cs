@@ -14,29 +14,26 @@ internal class RetryableTempDirectory : DisposableDirectory
 
     protected override void Dispose(bool disposing)
     {
-        if (disposing)
+        IOException? lastException = null;
+
+        for (int i = 0; i < 3; i++)
         {
-            IOException? lastException = null;
-
-            for (int i = 0; i < 3; i++)
+            try
             {
-                try
-                {
-                    base.Dispose(disposing);
-                    return;
-                }
-                catch (IOException ex)
-                {
-                    lastException = ex;
-
-                    Thread.Sleep(TimeSpan.FromSeconds(1));
-                }
+                base.Dispose(disposing);
+                return;
             }
-
-            if (lastException is not null)
+            catch (IOException ex)
             {
-                throw new IOException("Failed to delete temp directory after multiple retries.", lastException);
+                lastException = ex;
+
+                Thread.Sleep(TimeSpan.FromSeconds(1));
             }
+        }
+
+        if (lastException is not null)
+        {
+            throw new IOException("Failed to delete temp directory after multiple retries.", lastException);
         }
     }
 
