@@ -44,7 +44,7 @@ internal abstract class PackageCreator
     {
         IFileInfo destinationPackage = _fs.FileInfo.New(_fs.Path.Combine(destinationDirectory.FullName, $"{Name}.nupkg"));
 
-        using (_fs.CreateDisposableDirectory(out IDirectoryInfo temp))
+        using (_fs.CreateDisposableDirectory(RetryableTempDirectory.GetRandomTempPath(), dirInfo => new RetryableTempDirectory(dirInfo), out IDirectoryInfo temp))
         {
             using (PackageRepository.Create(temp.FullName, feeds: new Uri("https://api.nuget.org/v3/index.json")))
             {
