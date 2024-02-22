@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Verify.Nupkg\Verify.Nupkg.csproj" />
+    <ProjectReference Include="$(RepoRoot)\src\Verify.Nupkg\Verify.Nupkg.csproj" />
   </ItemGroup>
 
 </Project>
