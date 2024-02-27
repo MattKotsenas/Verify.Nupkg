@@ -1,0 +1,12 @@
+<Project>
+
+  <Target Name="ValidateGeneratePackageOnBuildForProjects" BeforeTargets="GenerateAssemblyReferences">
+    <Message Text="Using MSBuildTasks from path: '$(_TaskAssembly)' MSBuildRuntimeType: $(MSBuildRuntimeType). NETCoreSdkVersion: $(NETCoreSdkVersion)" Importance="Low" />
+    <Message Text="Project: '$(MSBuildProjectFullPath)'. TargetFramework = '$(TargetFramework)'" Importance="Normal" />
+
+    <ValidateGeneratePackageOnBuild
+      ProjectFile="$(MSBuildProjectFullPath)"
+      AttachDebugger="$(ValidateGeneratePackageOnBuildShouldDebug)" />
+  </Target>
+
+</Project>

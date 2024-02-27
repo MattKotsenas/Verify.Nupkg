@@ -4,6 +4,7 @@
     <TargetFrameworks>net472;net6.0;net7.0;net8.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);NU5100</NoWarn>
     <PackageId>Verify.Nupkg</PackageId>
     <Authors>https://github.com/MattKotsenas/Verify.Nupkg/graphs/contributors</Authors>
     <PackageTags>NuGet, Nupkg, Verify</PackageTags>
@@ -23,8 +24,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(RepoRoot)/README.md" Pack="true" PackagePath="\" />
-    <None Include="$(RepoRoot)/icon.png" Pack="true" PackagePath="\" />
+    <!-- MSBuild tasks -->
+    <ProjectReference Include="../MSBuildTasks/MSBuildTasks.csproj">
+      <!-- Build-order only dependency -->
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+
+    <!-- These need to be coordinated with the paths in the .props file -->
+    <None Include="$(ArtifactsPath)/bin/MSBuildTasks/$(Configuration)_net462/**/*.*" Exclude="$(ArtifactsPath)/bin/MSBuildTasks/**/build/**/*.*" Visible="false" Pack="true" PackagePath="tasks/netfx/" />
+    <None Include="$(ArtifactsPath)/bin/MSBuildTasks/$(Configuration)_net6.0/**/*.*" Exclude="$(ArtifactsPath)/bin/MSBuildTasks/**/build/**/*.*" Visible="false" Pack="true" PackagePath="tasks/netcore/" />
+    <None Include="$(ArtifactsPath)/bin/MSBuildTasks/$(Configuration)_net6.0/build/**/*.*" Visible="false" Pack="true" PackagePath="build/" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="$(RepoRoot)/README.md" Pack="true" PackagePath="\" />
+    <None Include="$(RepoRoot)/icon.png" Pack="true" PackagePath="\" />
+    <None Include="build/**/*.*" Pack="true" PackagePath="build/" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,3 @@
+<Project>
+  <Import Include="$(MSBuildThisFileDirectory)/MSBuildTasks.targets" />
+</Project>

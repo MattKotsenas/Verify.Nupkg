@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <ValidateGeneratePackageOnBuildShouldDebug Condition="'$(ValidateGeneratePackageOnBuildShouldDebug)' == ''">false</ValidateGeneratePackageOnBuildShouldDebug>
+
+    <!-- These paths need to be coordinated with the PackagePath defined in the project. -->
+    <_TaskAssembly Condition="'$(MSBuildRuntimeType)' != 'Core'">netfx</_TaskAssembly>
+    <_TaskAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">netcore</_TaskAssembly>
+    <_TaskAssembly>$(MSBuildThisFileDirectory)/../tasks/$(_TaskAssembly)/MSBuildTasks.dll</_TaskAssembly>
+  </PropertyGroup>
+
+  <UsingTask TaskName="ValidateGeneratePackageOnBuild" AssemblyFile="$(_TaskAssembly)" TaskFactory="TaskHostFactory" />
+</Project>

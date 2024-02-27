@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="MSBuild.ProjectCreation" Version="11.0.1" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" Version="2.2.1" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="20.0.15" />
+    <PackageReference Include="Verify.Xunit" Version="23.0.1" />
+    <PackageReference Include="xunit" Version="2.6.6" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" PrivateAssets="all" />
+    <PackageReference Include="coverlet.collector" Version="6.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(RepoRoot)\src\MSBuildTasks\MSBuildTasks.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+</Project>
