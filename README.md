@@ -99,6 +99,50 @@ settings.ScrubNuspec();
 which itself is a convenience method for `ScrubNuspecVersion()` and `ScrubNuspecCommit()`. Feel free to use them
 separately if you'd like to verify either of these values.
 
+## Advanced usage
+
+### Locating the .nupkg file
+
+If you're writing tests for a package in the same repo, it can be tricky to locate the .nupkg file.
+
+One solution is to generate the NuGet package on build, and then use the provided MSBuild targets to copy the .nupkg
+file to a known location, and then use that location in your tests.
+
+#### 1. Generate the NuGet package on build
+
+Add the property `<GeneratePackageOnBuild>` to your .csproj file.
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+</Project>
+```
+
+#### 2. Copy the .nupkg file to a known location in your test project
+
+In your test project, reference the package project using a `<ProjectReference` and add the `AddPackageAsOutput` property to copy the
+.nupkg file to your project output directory.
+
+For example, in your `MyPackage.Tests.csproj` file:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference AddPackageAsOutput="true" Include="../MyPackage.csproj" />
+  </ItemGroup>
+</Project>
+```
+
+#### 3. Locate the .nupkg file in your tests
+
+The exact method to locate the .nupkg file will depend on your test framework and project structure. Usually, you can use
+`Assembly.GetExecutingAssembly().Location` to locate the test assembly, and then use `Directory.GetFiles` to locate your package.
+
+You can also use the `[DeploymentItem]` attribute in MSTest, write a target to convert the items to an `<EmbeddedResource>` (items
+have the metadata `IsPackageFromProjectReference=true`).
+
 ## Icon
 
 [Package](https://thenounproject.com/icon/package-1599428/) designed by [sandra](https://thenounproject.com/meisandra0583/)

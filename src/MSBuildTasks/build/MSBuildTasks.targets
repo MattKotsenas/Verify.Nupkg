@@ -1,12 +1,34 @@
 <Project>
 
-  <Target Name="ValidateGeneratePackageOnBuildForProjects" BeforeTargets="GenerateAssemblyReferences">
+  <Target Name="ValidateGeneratePackageOnBuildForProjects" AfterTargets="GenerateAssemblyReferences">
     <Message Text="Using MSBuildTasks from path: '$(_TaskAssembly)' MSBuildRuntimeType: $(MSBuildRuntimeType). NETCoreSdkVersion: $(NETCoreSdkVersion)" Importance="Low" />
     <Message Text="Project: '$(MSBuildProjectFullPath)'. TargetFramework = '$(TargetFramework)'" Importance="Normal" />
 
     <ValidateGeneratePackageOnBuild
       ProjectFile="$(MSBuildProjectFullPath)"
       AttachDebugger="$(ValidateGeneratePackageOnBuildShouldDebug)" />
+    </Target>
+
+  <Target Name="AddProjectPackagesAsOutput" AfterTargets="GenerateAssemblyReferences" DependsOnTargets="ValidateGeneratePackageOnBuildForProjects">
+    <ItemGroup>
+      <_ProjectsToCopy Include="%(ProjectReference.Identity)" Condition="'%(ProjectReference.AddPackageAsOutput)'  == 'true'" />
+    </ItemGroup>
+
+    <Message Text="Projects to copy @(_ProjectsToCopy)" Importance="Low" />
+
+    <!-- TODO: Ideally we could rely on a public API and not a private target -->
+    <MSBuild Projects="@(_ProjectsToCopy)" Targets="_GetOutputItemsFromPack">
+      <Output TaskParameter="TargetOutputs" ItemName="_DependentPackageOutputs" />
+    </MSBuild>
+
+    <Message Text="Dependent TargetOutputs is '@(_DependentPackageOutputs)'" Importance="Low" />
+
+    <ItemGroup>
+      <Content Include="%(_DependentPackageOutputs.Identity)" Condition="'$([System.IO.Path]::GetExtension(%(_DependentPackageOutputs.Identity)))' == '.nupkg'" CopyToOutputDirectory="PreserveNewest">
+        <IsPackageFromProjectReference>true</IsPackageFromProjectReference>
+        <Project>%(_DependentPackageOutputs.Identity)</Project>
+      </Content>
+    </ItemGroup>
   </Target>
 
 </Project>
