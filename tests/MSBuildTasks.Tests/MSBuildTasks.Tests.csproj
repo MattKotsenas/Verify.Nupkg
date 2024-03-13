@@ -10,8 +10,8 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="MSBuild.ProjectCreation" Version="11.0.1" />
-    <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" Version="2.2.1" />
+    <PackageReference Include="MSBuild.ProjectCreation" Version="11.1.0" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" Version="2.2.4" />
     <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="20.0.15" />
     <PackageReference Include="Verify.Xunit" Version="23.0.1" />
     <PackageReference Include="xunit" Version="2.6.6" />
@@ -21,6 +21,25 @@
 
   <ItemGroup>
     <ProjectReference Include="$(RepoRoot)\src\MSBuildTasks\MSBuildTasks.csproj" ReferenceOutputAssembly="false" />
+    <!--<Content Include="$(RepoRoot)\src\MSBuildTasks\build\**\">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>-->
+    <Content Include="$(ArtifactsPath)\bin\MSBuildTasks\$(Configuration)_net6.0\build\**\*.*">
+      <Link>build\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <!--<Visible>false</Visible>-->
+    </Content>
+    <Content Include="$(ArtifactsPath)\bin\MSBuildTasks\$(Configuration)_net6.0\MSBuildTasks.dll">
+      <Link>tasks\netcore\MSBuildTasks.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <!--<Visible>false</Visible>-->
+    </Content>
+    <Content Include="$(ArtifactsPath)\bin\MSBuildTasks\$(Configuration)_net462\MSBuildTasks.dll">
+      <Link>tasks\netfx\MSBuildTasks.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <!--<Visible>false</Visible>-->
+    </Content>
   </ItemGroup>
 
 </Project>

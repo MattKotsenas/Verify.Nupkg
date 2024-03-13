@@ -1,6 +1,8 @@
 ﻿using System.IO.Abstractions;
 
-namespace Verify.Nupkg.Tests;
+namespace MSBuildTasks.Tests;
+
+// TODO: Move to shared project
 
 /// <summary>
 /// Helper class that retries deleting a temp directory multiple times. This avoid flakiness when running tests
@@ -36,4 +38,13 @@ internal class RetryableTempDirectory : DisposableDirectory
             throw new IOException("Failed to delete temp directory after multiple retries.", lastException);
         }
     }
+
+    //// Once https://github.com/TestableIO/System.IO.Abstractions.Extensions/pull/63 lands, remove this method
+    //// and use the updated TestableIO.Abstractions.Extensions package instead.
+    //internal static string GetRandomTempPath()
+    //{
+    //    var temp = Path.GetTempPath();
+    //    var fileName = Path.GetRandomFileName();
+    //    return Path.Combine(temp, fileName);
+    //}
 }

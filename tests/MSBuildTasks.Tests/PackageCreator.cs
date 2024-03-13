@@ -1,8 +1,10 @@
-﻿using Microsoft.Build.Execution;
+using Microsoft.Build.Execution;
 using Microsoft.Build.Utilities.ProjectCreation;
 using System.IO.Abstractions;
 
-namespace Verify.Nupkg.Tests;
+namespace MSBuildTasks.Tests;
+
+// TODO: Move to shared project
 
 /// <summary>
 /// A class that automates the creation of a package for testing purposes.
@@ -46,17 +48,19 @@ internal abstract class PackageCreator
 
         using (_fs.CreateDisposableDirectory(dirInfo => new RetryableTempDirectory(dirInfo), out IDirectoryInfo temp))
         {
-            using (PackageRepository.Create(temp.FullName, feeds: new Uri("https://api.nuget.org/v3/index.json")))
+            using (PackageRepository.Create(temp.FullName))
             {
                 CreateCore(temp)
-                    .Target(name: "CopyPackageForTests", afterTargets: "Pack")
-                        .Task(name: "Copy", parameters: new Dictionary<string, string?>
-                        {
-                            { "SourceFiles", @"$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" },
-                            { "DestinationFiles", destinationPackage.FullName },
-                        })
+                    //.Import(Path.Combine(destinationDirectory.FullName, "build", "MSBuildTasks.targets"))
+                    //.UsingTaskAssemblyFile("ValidateGeneratePackageOnBuild", Path.Combine(destinationDirectory.FullName, "")
+                    //.Target(name: "CopyPackageForTests", afterTargets: "Pack")
+                    //    .Task(name: "Copy", parameters: new Dictionary<string, string?>
+                    //    {
+                    //        { "SourceFiles", @"$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" },
+                    //        { "DestinationFiles", destinationPackage.FullName },
+                    //    })
                     .Save(_fs.Path.Combine(temp.FullName, $"{Name}.csproj"))
-                    .TryBuild(restore: true, target: "Pack", out bool result, out BuildOutput buildOutput, out IDictionary<string, TargetResult>? outputs);
+                    .TryBuild(restore: true, target: "Build", out bool result, out BuildOutput buildOutput, out IDictionary<string, TargetResult>? outputs);
 
                 if (!result)
                 {

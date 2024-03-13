@@ -2,6 +2,7 @@
 using Microsoft.Build.Evaluation;
 using System.Diagnostics;
 
+// TODO: Consider renaming project
 namespace MSBuildTasks;
 
 public class ValidateGeneratePackageOnBuild : Microsoft.Build.Utilities.Task
@@ -32,7 +33,8 @@ public class ValidateGeneratePackageOnBuild : Microsoft.Build.Utilities.Task
 
         if (!bool.TryParse(property.EvaluatedValue, out bool generatePackageOnBuild) || !generatePackageOnBuild)
         {
-            LogDiagnostic("VN001", ProjectFile!, "GeneratePackageOnBuild=true not detected. Ensure GeneratePackageOnBuild is set to true to avoid consuming a stale package.");
+            // TODO: Double-check diagnostic prefix based on final project name
+            LogDiagnostic("VP001", ProjectFile!, "GeneratePackageOnBuild=true not detected. Ensure GeneratePackageOnBuild is set to true to avoid consuming a stale package.");
         }
 
         return !Log.HasLoggedErrors;

@@ -1,20 +1,24 @@
 <Project>
 
-  <Target Name="ValidateGeneratePackageOnBuildForProjects" AfterTargets="GenerateAssemblyReferences">
-    <Message Text="Using MSBuildTasks from path: '$(_TaskAssembly)' MSBuildRuntimeType: $(MSBuildRuntimeType). NETCoreSdkVersion: $(NETCoreSdkVersion)" Importance="Low" />
+  <Target Name="ValidateGeneratePackageOnBuildForProjects">
+    <!--<Message Text="Using MSBuildTasks from path: '$(_TaskAssembly)' MSBuildRuntimeType: $(MSBuildRuntimeType). NETCoreSdkVersion: $(NETCoreSdkVersion)" Importance="Low" />
     <Message Text="Project: '$(MSBuildProjectFullPath)'. TargetFramework = '$(TargetFramework)'" Importance="Normal" />
 
     <ValidateGeneratePackageOnBuild
       ProjectFile="$(MSBuildProjectFullPath)"
-      AttachDebugger="$(ValidateGeneratePackageOnBuildShouldDebug)" />
+      AttachDebugger="$(ValidateGeneratePackageOnBuildShouldDebug)" />-->
     </Target>
 
-  <Target Name="AddProjectPackagesAsOutput" AfterTargets="GenerateAssemblyReferences" DependsOnTargets="ValidateGeneratePackageOnBuildForProjects">
+  <Target Name="AddProjectPackagesAsOutput" BeforeTargets="Build" DependsOnTargets="ValidateGeneratePackageOnBuildForProjects">
     <ItemGroup>
       <_ProjectsToCopy Include="%(ProjectReference.Identity)" Condition="'%(ProjectReference.AddPackageAsOutput)'  == 'true'" />
     </ItemGroup>
 
     <Message Text="Projects to copy @(_ProjectsToCopy)" Importance="Low" />
+
+    <ValidateGeneratePackageOnBuild Condition="'@(_ProjectsToCopy)' != ''"
+  ProjectFile="@(_ProjectsToCopy)"
+  AttachDebugger="$(ValidateGeneratePackageOnBuildShouldDebug)" />
 
     <!-- TODO: Ideally we could rely on a public API and not a private target -->
     <MSBuild Projects="@(_ProjectsToCopy)" Targets="_GetOutputItemsFromPack">
@@ -23,7 +27,7 @@
 
     <Message Text="Dependent TargetOutputs is '@(_DependentPackageOutputs)'" Importance="Low" />
 
-    <ItemGroup>
+    <ItemGroup Condition="'@(_ProjectsToCopy)' != ''">
       <Content Include="%(_DependentPackageOutputs.Identity)" Condition="'$([System.IO.Path]::GetExtension(%(_DependentPackageOutputs.Identity)))' == '.nupkg'" CopyToOutputDirectory="PreserveNewest">
         <IsPackageFromProjectReference>true</IsPackageFromProjectReference>
         <Project>%(_DependentPackageOutputs.Identity)</Project>
