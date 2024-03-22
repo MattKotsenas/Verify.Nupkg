@@ -19,6 +19,7 @@ public static class VerifySettingsScrubExtensions
     /// <returns>The <see cref="VerifySettings"/> for chaining.</returns>
     public static VerifySettings ScrubNuspec(this VerifySettings settings)
     {
+        settings.ScrubNuspecSchema();
         settings.ScrubNuspecVersion();
         settings.ScrubNuspecCommit();
         settings.ScrubNuspecRepositoryUrl();
@@ -43,6 +44,51 @@ public static class VerifySettingsScrubExtensions
         if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
 
         settings.CurrentSettings.ScrubNuspec();
+        return settings;
+    }
+
+    /// <summary>
+    /// Scrub the XML schema from the nuspec file.
+    /// </summary>
+    /// <param name="settings">
+    /// The <see cref="VerifierSettings"/> to modify.
+    /// </param>
+    /// <remarks>
+    /// The NuGet client will always use the oldest schema version it can. Additionally, a new schema version was released for
+    /// SemVer version numbers (i.e. v2 and v3 here: https://github.com/NuGet/NuGet.Client/blob/8c972cdff5b1194d7c37384fca5816a33ffbe0c4/src/NuGet.Core/NuGet.Packaging/PackageCreation/Authoring/ManifestSchemaUtility.cs).
+    ///
+    /// The result of these two factors is that a version bump (such as from 1.0.0-deadbeef to 1.0.1) may result in a nuspec diff.
+    /// Thus scrub the xmlns for the NuSpec schema to reduce the noise in the diff.
+    /// </remarks>
+    /// <returns>The <see cref="VerifySettings"/> for chaining.</returns>
+    public static VerifySettings ScrubNuspecSchema(this VerifySettings settings)
+    {
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
+        settings.AddScrubber(extension: "nuspec", sb => new SchemaScrubber().Scrub(sb));
+
+        return settings;
+    }
+
+    /// <summary>
+    /// Scrub the XML schema from the nuspec file.
+    /// </summary>
+    /// <param name="settings">
+    /// The <see cref="SettingsTask"/> to modify.
+    /// </param>
+    /// <remarks>
+    /// The NuGet client will always use the oldest schema version it can. Additionally, a new schema version was released for
+    /// SemVer version numbers (i.e. v2 and v3 here: https://github.com/NuGet/NuGet.Client/blob/8c972cdff5b1194d7c37384fca5816a33ffbe0c4/src/NuGet.Core/NuGet.Packaging/PackageCreation/Authoring/ManifestSchemaUtility.cs).
+    ///
+    /// The result of these two factors is that a version bump (such as from 1.0.0-deadbeef to 1.0.1) may result in a nuspec diff.
+    /// As a result, scrub the xmlns schema to reduce the noise in the diff.
+    /// </remarks>
+    /// <returns>The <see cref="SettingsTask"/> for chaining.</returns>
+    public static SettingsTask ScrubNuspecSchema(this SettingsTask settings)
+    {
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
+        settings.CurrentSettings.ScrubNuspecSchema();
         return settings;
     }
 

@@ -29,9 +29,11 @@ public class SimplePackageTests
     }
 
     [Fact]
-    public Task DoNotScrubVersionTest()
+    public Task OnlyOptInScrubbersRun()
     {
-        // In this test we intentionally _do not_ include the version scrubber
+        // In this test we intentionally _do not_ include these scrubbers:
+        //  - Version
+        //  - Schema
         // to validate that only scrubbers we opt-in to are applied.
 
         VerifySettings settings = new();
