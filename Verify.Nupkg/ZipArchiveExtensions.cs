@@ -43,36 +43,38 @@ internal static class ZipArchiveExtensions
 
     private static string Walk(PathNode root)
     {
-        StringBuilder sb = new();
+        StringBuilder output = new();
+        StringBuilder scratch = new();
 
-        Walk(root, 0, sb);
+        Walk(root, 0, output, scratch);
 
-        return sb.ToString();
+        return output.ToString();
     }
 
-    private static void Walk(PathNode node, int depth, StringBuilder sb)
+    // prefixBuilder is a scratch pad for building the prefix. Since this is a simple,
+    // single-threaded operation, we can reuse the same StringBuilder instance without needing
+    // the complexity of an object pool.
+    private static void Walk(PathNode node, int depth, StringBuilder output, StringBuilder prefixBuilder)
     {
-        StringBuilder prefix = new();
-
         if (depth - 1 > 0)
         {
             foreach (var i in Enumerable.Range(0, depth - 1))
             {
-                prefix.Append("|   ");
+                prefixBuilder.Append("|   ");
             }
         }
 
         if (depth > 0)
         {
-            prefix.Append("|-- ");
+            prefixBuilder.Append("|-- ");
         }
 
-        sb.Append(prefix);
-        sb.AppendLine(node.Name);
+        output.Append(prefixBuilder);
+        output.AppendLine(node.Name);
 
         foreach (PathNode child in node.Children.OrderBy(c => c.Name, StringComparer.Ordinal))
         {
-            Walk(child, depth + 1, sb);
+            Walk(child, depth + 1, output, prefixBuilder.Clear());
         }
     }
 }
