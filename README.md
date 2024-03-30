@@ -99,7 +99,17 @@ settings.ScrubNuspec();
 which itself is a convenience method for `ScrubNuspecVersion()` and `ScrubNuspecCommit()`. Feel free to use them
 separately if you'd like to verify either of these values.
 
-### ASCII tree
+### Referencing / locating a package built in the same solution
+
+Verify is ideally suited for writing integration / snapshot tests of NuGet package contents.
+However, ensuring a project creates a fresh NuGet package and locating it for testing can be
+fragile.
+
+To simplify the process, consider using [GetPackFromProject](https://github.com/MattKotsenas/GetPackFromProject)
+to build the NuGet package for your `<ProjectReference>`s and place them in the test's
+output directory for easy locating.
+
+## ASCII tree
 
 The ASCII art tree is inspired by the `tree` command, but with a few modifications to reduce the amount of
 "noise" that occurs in diffs when files are added / removed.

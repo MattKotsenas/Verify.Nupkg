@@ -1,4 +1,5 @@
-﻿using Xunit.Abstractions;
+﻿using System.Reflection;
+using Xunit.Abstractions;
 
 namespace Verify.Nupkg.Tests;
 
@@ -11,19 +12,27 @@ public abstract class PrebuiltArtifactsTestBase
     {
         Output = output;
 
-        string artifactsPath = RetrieveArtifactsPathFromAssemblyMetadata();
-        PackagePath = GetLatestPackageVersion(artifactsPath, packageName).FullName;
+        PackagePath = GetLatestPackageVersion(packageName).FullName;
     }
 
-    private static string RetrieveArtifactsPathFromAssemblyMetadata()
+    private static FileInfo GetLatestPackageVersion(string packageName)
     {
-        string packagePath = new PackagePathLocator().Locate();
-
-        return packagePath;
+        string assemblyLocation = GetAssemblyLocation(Assembly.GetExecutingAssembly());
+        return new FileInfo(assemblyLocation)
+            .Directory!
+            .GetFiles($"{packageName}*.nupkg")
+            .OrderByDescending(f => f.LastWriteTimeUtc)
+            .First();
     }
 
-    private static FileInfo GetLatestPackageVersion(string artifactsPath, string packageName)
+    private static string GetAssemblyLocation(Assembly assembly)
     {
-        return NupkgFinder.Find(artifactsPath).LatestWithName(packageName).Package;
+#if NETFRAMEWORK
+        Uri codebase = new(assembly.CodeBase);
+        return Uri.UnescapeDataString(codebase.AbsolutePath);
+#elif NETCOREAPP
+        return assembly.Location;
+#endif
+        throw new InvalidOperationException("Unsupported framework.");
     }
 }
