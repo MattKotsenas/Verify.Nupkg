@@ -4,5 +4,5 @@
 |-- _rels
 |   |-- .rels
 |-- lib
-    |-- net8.0
-        |-- SimplePackage.dll
+|   |-- net8.0
+|   |   |-- SimplePackage.dll

@@ -1,7 +1,5 @@
-﻿using Spectre.Console;
-using Spectre.Console.Rendering;
-using Spectre.Console.Testing;
-using System.IO.Compression;
+﻿using System.IO.Compression;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace VerifyTests;
@@ -40,47 +38,43 @@ internal static class ZipArchiveExtensions
 
         }
 
-        // Spectre.Console requires the top of a tree to be a Tree and not a TreeNode, so start with a dummy TreeNode
-        // and skip the root PathNode
-        TreeNode tn = new(new Markup(""));
-        Walk(tn, [.. root.Children]);
-
-        // Create our Tree root and skip the dummy TreeNode from above
-        Tree tree = new("/")
-        {
-            Guide = new DiffableTreeGuide()
-        };
-        tree.AddNodes(tn.Nodes);
-
-        TestConsole console = new();
-        console.Write(tree);
-
-        return console.Output;
+        return Walk(root);
     }
 
-    private static void Walk(TreeNode treeNode, params PathNode[] pathNodes)
+    private static string Walk(PathNode root)
     {
-        foreach (PathNode pathNode in pathNodes)
+        StringBuilder output = new();
+        StringBuilder scratch = new();
+
+        Walk(root, 0, output, scratch);
+
+        return output.ToString();
+    }
+
+    // prefixBuilder is a scratch pad for building the prefix. Since this is a simple,
+    // single-threaded operation, we can reuse the same StringBuilder instance without needing
+    // the complexity of an object pool.
+    private static void Walk(PathNode node, int depth, StringBuilder output, StringBuilder prefixBuilder)
+    {
+        if (depth - 1 > 0)
         {
-            TreeNode childTree = treeNode.AddNode(Markup.Escape(pathNode.Name));
-            foreach (PathNode childPath in pathNode.Children.OrderBy(c => c.Name, StringComparer.Ordinal))
+            foreach (var i in Enumerable.Range(0, depth - 1))
             {
-                Walk(childTree, childPath);
+                prefixBuilder.Append("|   ");
             }
         }
-    }
 
-    private class DiffableTreeGuide : TreeGuide
-    {
-        public override string GetPart(TreeGuidePart part)
+        if (depth > 0)
         {
-            // Using `End` causes diff noise, so use `Fork` instead
-            if (part == TreeGuidePart.End)
-            {
-                part = TreeGuidePart.Fork;
-            }
+            prefixBuilder.Append("|-- ");
+        }
 
-            return Ascii.GetPart(part);
+        output.Append(prefixBuilder);
+        output.AppendLine(node.Name);
+
+        foreach (PathNode child in node.Children.OrderBy(c => c.Name, StringComparer.Ordinal))
+        {
+            Walk(child, depth + 1, output, prefixBuilder.Clear());
         }
     }
 }

@@ -37,8 +37,8 @@ Here's an example of the diff that results from adding a README to the package:
 +|-- README.md
 |-- SamplePackage.nuspec
 |-- lib
-    |-- net8.0
-        |-- SamplePackage.dll
+|   |-- net8.0
+|   |   |-- SamplePackage.dll
 ```
 
 Verifying package structure is part of an overall solution to prevent accidental package breaks. If you want to verify /
@@ -98,6 +98,11 @@ settings.ScrubNuspec();
 
 which itself is a convenience method for `ScrubNuspecVersion()` and `ScrubNuspecCommit()`. Feel free to use them
 separately if you'd like to verify either of these values.
+
+### ASCII tree
+
+The ASCII art tree is inspired by the `tree` command, but with a few modifications to reduce the amount of
+"noise" that occurs in diffs when files are added / removed.
 
 ## Icon
 
