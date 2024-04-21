@@ -29,6 +29,9 @@ jobs:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work
         filter: blob:none
 
+    - name: Fetch blobs for nbgv
+      run: git --no-pager blame version.json
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
