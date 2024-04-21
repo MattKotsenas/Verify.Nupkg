@@ -12,6 +12,9 @@ permissions:
   actions: read
   checks: write
 
+env:
+  NBGV_GitEngine: LibGit2 # Use LibGit2 for nbgv so it understands blobless / partial clones
+
 jobs:
   build:
     strategy:
