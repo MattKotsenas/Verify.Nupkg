@@ -1,5 +1,13 @@
 <Project>
 
+ <PropertyGroup>
+    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+ 
+    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
   <ItemGroup>
     <!-- <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1" PrivateAssets="All" /> -->
   </ItemGroup>
