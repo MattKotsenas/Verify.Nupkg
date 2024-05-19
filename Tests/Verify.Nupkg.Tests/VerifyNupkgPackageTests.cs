@@ -1,14 +1,14 @@
-﻿using Xunit.Abstractions;
+﻿namespace Verify.Nupkg.Tests;
 
-namespace Verify.Nupkg.Tests;
-
-public class VerifyNupkgPackageTests : PrebuiltArtifactsTestBase
+[TestClass]
+[UsesVerify]
+public partial class VerifyNupkgPackageTests : PrebuiltArtifactsTestBase
 {
-    public VerifyNupkgPackageTests(ITestOutputHelper output) : base(output, "Verify.Nupkg")
+    public VerifyNupkgPackageTests() : base("Verify.Nupkg")
     {
     }
 
-    [Fact]
+    [TestMethod]
     public Task Baseline()
     {
         // This isn't a test of Verify.Nupkg project, but a baseline for the package itself.
