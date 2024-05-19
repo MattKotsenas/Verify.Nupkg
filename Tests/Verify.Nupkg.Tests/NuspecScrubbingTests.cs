@@ -1,6 +1,8 @@
 ﻿namespace Verify.Nupkg.Tests;
 
-public class NuspecScrubbingTests
+[TestClass]
+[UsesVerify]
+public partial class NuspecScrubbingTests
 {
     private string _packageWithRepoGitExtension = SamplePackages.Instance.PackageWithRepoGitExtension.Value.FullName;
     private string _packageWithoutRepoGitExtension = SamplePackages.Instance.PackageWithoutRepoGitExtension.Value.FullName;
@@ -9,7 +11,7 @@ public class NuspecScrubbingTests
     private string _packageWithoutRepoUrl = SamplePackages.Instance.PackageWithoutRepoUrl.Value.FullName;
     private string _packageWithoutRepoCommit = SamplePackages.Instance.PackageWithoutRepoCommit.Value.FullName;
 
-    [Fact]
+    [TestMethod]
     public Task DoNotScrubGitExtensionOnRepoUrl()
     {
         VerifySettings settings = new();
@@ -19,7 +21,7 @@ public class NuspecScrubbingTests
         return VerifyFile(_packageWithRepoGitExtension, settings);
     }
 
-    [Fact]
+    [TestMethod]
     public Task AddGitExtensionToRepoUrl()
     {
         VerifySettings settings = new();
@@ -29,7 +31,7 @@ public class NuspecScrubbingTests
         return VerifyFile(_packageWithoutRepoGitExtension, settings);
     }
 
-    [Fact]
+    [TestMethod]
     public Task DoNotScrubNonHttpsRepoUrl()
     {
         VerifySettings settings = new();
@@ -39,7 +41,7 @@ public class NuspecScrubbingTests
         return VerifyFile(_packageWithoutRepoHttps, settings);
     }
 
-    [Fact]
+    [TestMethod]
     public Task DoNotScrubNonGitHubDomainRepoUrl()
     {
         VerifySettings settings = new();
@@ -49,7 +51,7 @@ public class NuspecScrubbingTests
         return VerifyFile(_packageWithoutRepoGitHubDomain, settings);
     }
 
-    [Fact]
+    [TestMethod]
     public Task SkipScrubbingForRepoWithNoCommit()
     {
         VerifySettings settings = new();
@@ -59,7 +61,7 @@ public class NuspecScrubbingTests
         return VerifyFile(_packageWithoutRepoCommit, settings);
     }
 
-    [Fact]
+    [TestMethod]
     public Task SkipScrubbingForRepoWithNoUrl()
     {
         VerifySettings settings = new();

@@ -1,10 +1,12 @@
 namespace Verify.Nupkg.Tests;
 
-public class SimplePackageTests
+[TestClass]
+[UsesVerify]
+public partial class SimplePackageTests
 {
     private string _simplePackage = SamplePackages.Instance.SimplePackage.Value.FullName;
 
-    [Fact]
+    [TestMethod]
     public Task BasicTest()
     {
         VerifySettings settings = new();
@@ -14,7 +16,7 @@ public class SimplePackageTests
         return VerifyFile(_simplePackage, settings);
     }
 
-    [Fact]
+    [TestMethod]
     public Task CustomFileExclusionTest()
     {
         VerifySettings settings = new();
@@ -28,7 +30,7 @@ public class SimplePackageTests
         return VerifyFile(_simplePackage, settings);
     }
 
-    [Fact]
+    [TestMethod]
     public Task OnlyOptInScrubbersRun()
     {
         // In this test we intentionally _do not_ include these scrubbers:

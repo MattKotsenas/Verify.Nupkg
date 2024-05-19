@@ -1,17 +1,13 @@
 ﻿using System.Reflection;
-using Xunit.Abstractions;
 
 namespace Verify.Nupkg.Tests;
 
 public abstract class PrebuiltArtifactsTestBase
 {
-    protected ITestOutputHelper Output { get; private set; }
     protected string PackagePath { get; private set; }
 
-    protected PrebuiltArtifactsTestBase(ITestOutputHelper output, string packageName)
+    protected PrebuiltArtifactsTestBase(string packageName)
     {
-        Output = output;
-
         PackagePath = GetLatestPackageVersion(packageName).FullName;
     }
 
