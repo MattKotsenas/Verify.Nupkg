@@ -1,7 +1,6 @@
 ﻿namespace Verify.Nupkg.Tests;
 
 [TestClass]
-[UsesVerify]
 public partial class VerifyNupkgPackageTests : PrebuiltArtifactsTestBase
 {
     public VerifyNupkgPackageTests() : base("Verify.Nupkg")

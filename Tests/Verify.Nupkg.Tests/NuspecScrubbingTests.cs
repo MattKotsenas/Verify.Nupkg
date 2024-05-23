@@ -1,7 +1,6 @@
 ﻿namespace Verify.Nupkg.Tests;
 
 [TestClass]
-[UsesVerify]
 public partial class NuspecScrubbingTests
 {
     private string _packageWithRepoGitExtension = SamplePackages.Instance.PackageWithRepoGitExtension.Value.FullName;
