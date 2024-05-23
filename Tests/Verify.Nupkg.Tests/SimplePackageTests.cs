@@ -1,7 +1,6 @@
 namespace Verify.Nupkg.Tests;
 
 [TestClass]
-[UsesVerify]
 public partial class SimplePackageTests
 {
     private string _simplePackage = SamplePackages.Instance.SimplePackage.Value.FullName;
