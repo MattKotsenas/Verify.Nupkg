@@ -177,8 +177,8 @@ public static class VerifySettingsScrubExtensions
     /// The <see cref="VerifierSettings"/> to modify.
     /// </param>
     /// <remarks>
-    /// GitHub repository URLs can be optionally have a `.git` suffix. This method normalizes the URL to always end with .git
-    /// to reduce the noise in the diff.
+    /// GitHub repository URLs can be optionally have a `.git` suffix. This method normalizes the URL to always end with .git.
+    /// This method also normalizes GitHub urls to replace the project name so that forks do not cause diffs.
     /// </remarks>
     /// <returns>The <see cref="VerifySettings"/> for chaining.</returns>
     public static VerifySettings ScrubNuspecRepositoryUrl(this VerifySettings settings)
