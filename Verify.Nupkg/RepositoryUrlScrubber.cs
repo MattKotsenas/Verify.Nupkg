@@ -1,9 +1,13 @@
-﻿using System.Xml.Linq;
+﻿using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace VerifyTests;
 
 internal class RepositoryUrlScrubber : NuspecScrubberBase
 {
+    private static readonly Regex ProjectRegex = new("^/([^/]*)");
+    private static readonly string ProjectNameReplacement = "/********";
+
     protected override void Scrub(XDocument document)
     {
         XElement[] repositoryElements = document.DescendantsAnyNS("repository").ToArray();
@@ -28,8 +32,11 @@ internal class RepositoryUrlScrubber : NuspecScrubberBase
             if (!url.Path.EndsWith(".git"))
             {
                 url.Path += ".git";
-                urlAttribute.SetValue(url.Uri.ToString());
             }
+
+            url.Path = ProjectRegex.Replace(url.Path, ProjectNameReplacement);
+
+            urlAttribute.SetValue(url.Uri.ToString());
         }
     }
 }

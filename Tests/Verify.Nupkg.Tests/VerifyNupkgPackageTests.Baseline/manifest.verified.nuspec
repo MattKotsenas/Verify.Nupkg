@@ -11,7 +11,7 @@
     <description>Extends Verify (https://github.com/VerifyTests/Verify) to allow verification of NuGet .nupkg files.</description>
     <copyright>Copyright 2024. All rights reserved</copyright>
     <tags>NuGet, Nupkg, Verify</tags>
-    <repository type="git" url="https://github.com/MattKotsenas/Verify.Nupkg.git" commit="****************************************" />
+    <repository type="git" url="https://github.com/********/Verify.Nupkg.git" commit="****************************************" />
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="Verify" version="23.0.1" exclude="Build,Analyzers" />
