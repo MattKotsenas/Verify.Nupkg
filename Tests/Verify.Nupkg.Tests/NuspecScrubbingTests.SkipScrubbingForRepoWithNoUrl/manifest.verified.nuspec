@@ -1,8 +1,8 @@
 ﻿<package>
   <metadata>
-    <id>PackageWithoutRepoUrlOrCommit</id>
+    <id>PackageWithoutRepoUrlOrCommitOrBranch</id>
     <version>********</version>
-    <authors>PackageWithoutRepoUrlOrCommit</authors>
+    <authors>PackageWithoutRepoUrlOrCommitOrBranch</authors>
     <description>Package Description</description>
     <repository type="git" />
     <dependencies>

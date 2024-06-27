@@ -18,6 +18,7 @@ internal class SamplePackages
     public Lazy<IFileInfo> PackageWithoutRepoGitHubDomain { get; private set; }
     public Lazy<IFileInfo> PackageWithoutRepoUrl { get; private set; }
     public Lazy<IFileInfo> PackageWithoutRepoCommit { get; private set; }
+    public Lazy<IFileInfo> PackageWithoutRepoBranch { get; private set; }
 
     private SamplePackages()
     {
@@ -28,8 +29,9 @@ internal class SamplePackages
         PackageWithoutRepoGitExtension = SimplePackage;
         PackageWithoutRepoHttps = new Lazy<IFileInfo>(() => new PackageWithoutRepoHttps().Create(workingDirectory));
         PackageWithoutRepoGitHubDomain = new Lazy<IFileInfo>(() => new PackageWithoutRepoGitHubDomain().Create(workingDirectory));
-        PackageWithoutRepoUrl = new Lazy<IFileInfo>(() => new PackageWithoutRepoUrlOrCommit().Create(workingDirectory));
-        PackageWithoutRepoCommit = new Lazy<IFileInfo>(() => new PackageWithoutRepoUrlOrCommit().Create(workingDirectory));
+        PackageWithoutRepoUrl = new Lazy<IFileInfo>(() => new PackageWithoutRepoUrlOrCommitOrBranch().Create(workingDirectory));
+        PackageWithoutRepoCommit = new Lazy<IFileInfo>(() => new PackageWithoutRepoUrlOrCommitOrBranch().Create(workingDirectory));
+        PackageWithoutRepoBranch = new Lazy<IFileInfo>(() => new PackageWithoutRepoUrlOrCommitOrBranch().Create(workingDirectory));
     }
 
     private IDirectoryInfo GetWorkingDirectory()
