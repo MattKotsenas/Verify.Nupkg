@@ -14,7 +14,7 @@ internal class RepositoryBranchScrubber : NuspecScrubberBase
 
             if (commitAttribute is null)
             {
-                return;
+                continue;
             }
 
             // Length chosen only because it looks nice in diffs. Any number will work, but it should be consistent.

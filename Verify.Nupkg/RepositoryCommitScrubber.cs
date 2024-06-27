@@ -14,7 +14,7 @@ internal class RepositoryCommitScrubber : NuspecScrubberBase
 
             if (commitAttribute is null)
             {
-                return;
+                continue;
             }
 
             // Length chosen because it's the standard length of a git SHA. Any number will work, but it should be consistent.
