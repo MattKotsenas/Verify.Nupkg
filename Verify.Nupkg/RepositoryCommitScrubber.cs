@@ -2,7 +2,7 @@
 
 namespace VerifyTests;
 
-internal class CommitScrubber : NuspecScrubberBase
+internal class RepositoryCommitScrubber : NuspecScrubberBase
 {
     protected override void Scrub(XDocument document)
     {

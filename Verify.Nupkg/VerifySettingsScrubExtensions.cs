@@ -146,7 +146,7 @@ public static class VerifySettingsScrubExtensions
     {
         if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
 
-        settings.AddScrubber(extension: "nuspec", sb => new CommitScrubber().Scrub(sb));
+        settings.AddScrubber(extension: "nuspec", sb => new RepositoryCommitScrubber().Scrub(sb));
 
         return settings;
     }
