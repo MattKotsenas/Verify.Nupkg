@@ -9,6 +9,7 @@ public partial class NuspecScrubbingTests
     private string _packageWithoutRepoGitHubDomain = SamplePackages.Instance.PackageWithoutRepoGitHubDomain.Value.FullName;
     private string _packageWithoutRepoUrl = SamplePackages.Instance.PackageWithoutRepoUrl.Value.FullName;
     private string _packageWithoutRepoCommit = SamplePackages.Instance.PackageWithoutRepoCommit.Value.FullName;
+    private string _packageWithoutRepoBranch = SamplePackages.Instance.PackageWithoutRepoBranch.Value.FullName;
 
     [TestMethod]
     public Task DoNotScrubGitExtensionOnRepoUrl()
@@ -62,6 +63,16 @@ public partial class NuspecScrubbingTests
 
     [TestMethod]
     public Task SkipScrubbingForRepoWithNoUrl()
+    {
+        VerifySettings settings = new();
+        settings.UseUniqueDirectory();
+        settings.ScrubNuspec();
+
+        return VerifyFile(_packageWithoutRepoUrl, settings);
+    }
+
+    [TestMethod]
+    public Task SkipScrubbingForRepoWithNoBranch()
     {
         VerifySettings settings = new();
         settings.UseUniqueDirectory();

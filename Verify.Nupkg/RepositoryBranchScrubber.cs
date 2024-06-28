@@ -2,7 +2,7 @@
 
 namespace VerifyTests;
 
-internal class CommitScrubber : NuspecScrubberBase
+internal class RepositoryBranchScrubber : NuspecScrubberBase
 {
     protected override void Scrub(XDocument document)
     {
@@ -10,15 +10,15 @@ internal class CommitScrubber : NuspecScrubberBase
 
         foreach (XElement repositoryElement in repositoryElements)
         {
-            XAttribute? commitAttribute = repositoryElement.Attribute("commit");
+            XAttribute? commitAttribute = repositoryElement.Attribute("branch");
 
             if (commitAttribute is null)
             {
-                return;
+                continue;
             }
 
-            // Length chosen because it's the standard length of a git SHA. Any number will work, but it should be consistent.
-            string replacement = new('*', count: 40);
+            // Length chosen only because it looks nice in diffs. Any number will work, but it should be consistent.
+            string replacement = new('*', count: 8);
 
             commitAttribute.SetValue(replacement);
         }

@@ -23,6 +23,7 @@ public static class VerifySettingsScrubExtensions
         settings.ScrubNuspecVersion();
         settings.ScrubNuspecCommit();
         settings.ScrubNuspecRepositoryUrl();
+        settings.ScrubNuspecBranch();
 
         return settings;
     }
@@ -146,7 +147,7 @@ public static class VerifySettingsScrubExtensions
     {
         if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
 
-        settings.AddScrubber(extension: "nuspec", sb => new CommitScrubber().Scrub(sb));
+        settings.AddScrubber(extension: "nuspec", sb => new RepositoryCommitScrubber().Scrub(sb));
 
         return settings;
     }
@@ -163,6 +164,45 @@ public static class VerifySettingsScrubExtensions
     /// </remarks>
     /// <returns>The <see cref="SettingsTask"/> for chaining.</returns>
     public static SettingsTask ScrubNuspecCommit(this SettingsTask settings)
+    {
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
+        settings.CurrentSettings.ScrubNuspecCommit();
+        return settings;
+    }
+
+    /// <summary>
+    /// Scrub the branch info from the nuspec file.
+    /// </summary>
+    /// <param name="settings">
+    /// The <see cref="VerifierSettings"/> to modify.
+    /// </param>
+    /// <remarks>
+    /// In some scenarios, the branch used in the package are frequent and obvious changes. In these cases, scrub the branch
+    /// to reduce the noise in the diff.
+    /// </remarks>
+    /// <returns>The <see cref="VerifySettings"/> for chaining.</returns>
+    public static VerifySettings ScrubNuspecBranch(this VerifySettings settings)
+    {
+        if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+
+        settings.AddScrubber(extension: "nuspec", sb => new RepositoryBranchScrubber().Scrub(sb));
+
+        return settings;
+    }
+
+    /// <summary>
+    /// Scrub the branch info from the nuspec file.
+    /// </summary>
+    /// <param name="settings">
+    /// The <see cref="SettingsTask"/> to modify.
+    /// </param>
+    /// <remarks>
+    /// In some scenarios, the branch used in the package are frequent and obvious changes. In these cases, scrub the branch
+    /// to reduce the noise in the diff.
+    /// </remarks>
+    /// <returns>The <see cref="SettingsTask"/> for chaining.</returns>
+    public static SettingsTask ScrubNuspecBranch(this SettingsTask settings)
     {
         if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
 

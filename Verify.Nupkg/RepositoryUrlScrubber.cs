@@ -18,7 +18,7 @@ internal class RepositoryUrlScrubber : NuspecScrubberBase
 
             if (urlAttribute is null)
             {
-                return;
+                continue;
             }
 
             UriBuilder url = new(urlAttribute.Value);
@@ -26,7 +26,7 @@ internal class RepositoryUrlScrubber : NuspecScrubberBase
             // Exclude non-GitHub URLs, and other formats like SSH
             if (!(url.Host == "github.com" && url.Scheme == "https"))
             {
-                return;
+                continue;
             }
 
             if (!url.Path.EndsWith(".git"))

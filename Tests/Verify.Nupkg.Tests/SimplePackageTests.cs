@@ -42,6 +42,7 @@ public partial class SimplePackageTests
 
         settings.ScrubNuspecCommit();
         settings.ScrubNuspecRepositoryUrl();
+        settings.ScrubNuspecBranch();
 
         return VerifyFile(_simplePackage, settings);
     }

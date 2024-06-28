@@ -17,6 +17,7 @@ internal class SimplePackage : PackageCreator
             .Property("RepositoryType", "git")
             .Property("RepositoryUrl", "https://github.com/MattKotsenas/Verify.Nupkg")
             .Property("RepositoryCommit", "0e4d1b598f350b3dc675018d539114d1328189ef")
+            .Property("RepositoryBranch", "dev")
             .ItemNone(include: "README.md", metadata: new Dictionary<string, string?>
             {
                 { "Pack", "true" },
