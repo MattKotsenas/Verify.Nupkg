@@ -1,5 +1,8 @@
 <Project>
 
+  <PropertyGroup>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
   <ItemGroup>
     <!-- <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.4" PrivateAssets="All" /> -->
   </ItemGroup>
