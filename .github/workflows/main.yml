@@ -36,6 +36,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release /bl:./artifacts/logs/release/build.release.binlog
 
+    - name: Upload binlogs
+      uses: actions/upload-artifact@v4
+      with:
+        name: binlogs-${{ matrix.os }}
+        path: ./artifacts/logs
+        if-no-files-found: error
     - name: Test
       run: dotnet test --no-build --configuration Release
 
@@ -48,13 +54,6 @@ jobs:
         reporter: dotnet-trx
         fail-on-error: true
         fail-on-empty: true
-
-    - name: Upload binlogs
-      uses: actions/upload-artifact@v4
-      with:
-        name: binlogs-${{ matrix.os }}
-        path: ./artifacts/logs
-        if-no-files-found: error
 
     - name: Upload packages
       uses: actions/upload-artifact@v4
