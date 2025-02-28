@@ -1,6 +1,6 @@
 <Project>
 
-  <Import Project="build/targets/ReproducibleBuilds.targets" />
-  <Import Project="build/targets/TestProjects.targets" />
+  <Import Project="eng/targets/ReproducibleBuilds.targets" />
+  <Import Project="eng/targets/TestProjects.targets" />
 
 </Project>

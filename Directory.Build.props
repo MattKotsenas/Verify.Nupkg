@@ -6,8 +6,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <Import Project="build/targets/CodeAnalysis.props" />
-  <Import Project="build/targets/ReproducibleBuilds.props" />
-  <Import Project="build/targets/TestProjects.props" />
-  <Import Project="build/targets/Versioning.props" />
+  <Import Project="eng/targets/CodeAnalysis.props" />
+  <Import Project="eng/targets/ReproducibleBuilds.props" />
+  <Import Project="eng/targets/TestProjects.props" />
+  <Import Project="eng/targets/Versioning.props" />
 </Project>
