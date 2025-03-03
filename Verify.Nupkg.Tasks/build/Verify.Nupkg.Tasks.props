@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <_VerifyNupkg_TaskFolder Condition=" '$(MSBuildRuntimeType)' == 'Core' ">net8.0</_VerifyNupkg_TaskFolder>
+    <_VerifyNupkg_TaskFolder Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net472</_VerifyNupkg_TaskFolder>
+    <_VerifyNupkg_TaskAssembly>$(MSBuildThisFileDirectory)/../tasks/$(_VerifyNupkg_TaskFolder)/Verify.Nupkg.Tasks.dll</_VerifyNupkg_TaskAssembly>
+
+    <VerifyNupkgEnabled Condition=" '$(VerifyNupkgEnabled)' == '' ">true</VerifyNupkgEnabled>
+    <VerifyNupkgDirectory Condition=" '$(VerifyNupkgDirectory)' == '' ">$(MSBuildProjectDirectory)/NupkgBaselines/</VerifyNupkgDirectory>
+  </PropertyGroup>
+
+  <UsingTask TaskName="Verify.Nupkg.Tasks.VerifyNupkgTask" AssemblyFile="$(_VerifyNupkg_TaskAssembly)" />
+</Project>

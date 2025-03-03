@@ -1,0 +1,19 @@
+<Project>
+
+  <!-- TODO: Verify incremental build -->
+
+  <Target
+    Name="_VerifyNupkgAfterPack"
+    AfterTargets="Pack"
+    DependsOnTargets="Pack"
+    Condition=" '$(VerifyNupkgEnabled)' != 'false' AND '$(IsPackable)' == 'true'">
+
+    <ItemGroup>
+      <_VerifyNupkgPackageFiles Include="@(NuGetPackOutput)" Condition=" '%(Extension)' == '.nupkg' Or '%(Extension)' == '.snupkg' " />
+    </ItemGroup>
+
+    <Verify.Nupkg.Tasks.VerifyNupkgTask
+      PackageFiles="@(_VerifyNupkgPackageFiles)"
+      VerifyDirectory="$(VerifyNupkgDirectory)" />
+  </Target>
+</Project>
