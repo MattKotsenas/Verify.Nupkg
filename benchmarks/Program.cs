@@ -75,7 +75,7 @@ public class NuspecScrubbing
 
         await new SettingsTask(_settings, async verifySettings =>
         {
-            using var verifier = new InnerVerifier(_verifyFile, verifySettings);
+            using var verifier = new InnerVerifier(Environment.CurrentDirectory, _verifyFile, verifySettings);
             return await verify(verifier);
         });
     }
