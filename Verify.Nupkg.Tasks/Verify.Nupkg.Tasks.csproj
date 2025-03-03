@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Build settings">
+    <TargetFrameworks>net472;net8.0</TargetFrameworks>
+    <RootNamespace>Verify.Nupkg.Tasks</RootNamespace>
+    <AssemblyName>$(RootNamespace)</AssemblyName>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- TODO: Clean this up -->
+  <PropertyGroup Label="Nuspec properties">
+    <Authors>https://github.com/MattKotsenas/Verify.Nupkg/graphs/contributors</Authors>
+    <PackageTags>NuGet, Nupkg, Verify</PackageTags>
+    <Description>Extends Verify (https://github.com/VerifyTests/Verify) to allow verification of NuGet .nupkg files.</Description>
+    <Copyright>Copyright 2024. All rights reserved</Copyright>
+    <PackageProjectUrl>https://github.com/MattKotsenas/Verify.Nupkg</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup Label="MSBuild task settings">
+    <!-- This target will run when MSBuild is collecting the files to be packaged, and we'll implement it below. This property controls the dependency list for this packaging process, so by adding our custom property we hook ourselves into the process in a supported way. -->
+    <TargetsForTfmSpecificBuildOutput>
+      $(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage
+    </TargetsForTfmSpecificBuildOutput>
+    <!-- This property tells MSBuild where the root folder of the package's build assets should be. Because we are not a library package, we should not pack to 'lib'. Instead, we choose 'tasks' by convention. -->
+    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
+    <!-- NuGet does validation that libraries in a package are exposed as dependencies, but we _explicitly_ do not want that behavior for MSBuild tasks. They are isolated by design. Therefore we ignore this specific warning. -->
+    <NoWarn>$(NoWarn);NU5100</NoWarn>
+    <!-- Suppress NuGet warning NU5128. -->
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <!-- Tell the SDK to generate a deps.json file -->
+    <GenerateDependencyFile>true</GenerateDependencyFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <!-- TODO: Clean this up -->
+  <ItemGroup Label="Package contents">
+    <Content Include="build/SquiggleCop.Tasks.props" PackagePath="build/" />
+    <Content Include="build/SquiggleCop.Tasks.targets" PackagePath="build/" />
+    <Content Include="buildTransitive/SquiggleCop.Tasks.props" PackagePath="buildTransitive/" />
+    <Content Include="buildTransitive/SquiggleCop.Tasks.targets" PackagePath="buildTransitive/" />
+    <Content Include="$(RepoRoot)/README.md" PackagePath="/" />
+    <Content Include="$(RepoRoot)/icon.png" PackagePath="/" />
+  </ItemGroup>
+
+  <!-- TODO: Clean this up -->
+  <ItemGroup>
+    <!-- TODO: Do CPM -->
+    <PackageReference Include="Polyfill" Version="2.1.0" PrivateAssets="all" Version="17.7.2" />
+    <PackageReference Include="Verify" Version="23.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Utilities.Core" PrivateAssets="All" ExcludeAssets="Runtime" />
+  </ItemGroup>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <!-- The TargetPath is the path inside the package that the source file will be placed. This is already precomputed in the ReferenceCopyLocalPaths items' DestinationSubPath, so reuse it here. -->
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)" TargetPath="%(ReferenceCopyLocalPaths.DestinationSubPath)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- This target adds the generated deps.json file to our package output -->
+  <Target Name="AddBuildDependencyFileToBuiltProjectOutputGroupOutput" BeforeTargets="BuiltProjectOutputGroup" Condition=" '$(GenerateDependencyFile)' == 'true'">
+
+    <ItemGroup>
+      <BuiltProjectOutputGroupOutput Include="$(ProjectDepsFilePath)" TargetPath="$(ProjectDepsFileName)" FinalOutputPath="$(ProjectDepsFilePath)" />
+    </ItemGroup>
+
+</Project>
