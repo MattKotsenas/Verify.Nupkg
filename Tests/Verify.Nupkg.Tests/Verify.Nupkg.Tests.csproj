@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="7.2.0" />
     <PackageReference Include="MSTest" Version="3.7.3" />
-    <PackageReference Include="MSBuild.ProjectCreation" Version="11.0.1" />
+    <PackageReference Include="MSBuild.ProjectCreation" Version="14.0.5" />
     <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" Version="22.0.3" />
     <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="22.0.11" />
     <PackageReference Include="Verify.MSTest" Version="24.3.0-beta.4" /><!-- Testing MSTest source generator -->
