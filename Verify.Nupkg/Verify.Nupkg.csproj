@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Polyfill" Version="2.1.0" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="7.20.0" PrivateAssets="all" />
     <PackageReference Include="Verify" Version="23.0.1" />
   </ItemGroup>
 
