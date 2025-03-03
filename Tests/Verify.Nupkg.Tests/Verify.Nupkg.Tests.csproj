@@ -10,11 +10,11 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="7.2.0" />
-    <PackageReference Include="Verify.MSTest" Version="24.3.0-beta.4" /><!-- Testing MSTest source generator -->
     <PackageReference Include="MSTest" Version="3.8.2" />
     <PackageReference Include="MSBuild.ProjectCreation" Version="14.0.5" />
     <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" Version="22.0.3" />
     <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="22.0.11" />
+    <PackageReference Include="Verify.MSTest" Version="28.13.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.4" PrivateAssets="all" />
     <PackageReference Include="GetPackFromProject" Version="1.0.6" PrivateAssets="all" />
     <ProjectReference Include="..\..\Verify.Nupkg\Verify.Nupkg.csproj" AddPackageAsOutput="true" />
