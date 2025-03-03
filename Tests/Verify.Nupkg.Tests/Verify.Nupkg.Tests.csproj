@@ -15,7 +15,7 @@
     <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" Version="2.2.1" />
     <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="20.0.15" />
     <PackageReference Include="Verify.MSTest" Version="24.3.0-beta.4" /><!-- Testing MSTest source generator -->
-    <PackageReference Include="coverlet.collector" Version="6.0.0" PrivateAssets="all" />
+    <PackageReference Include="coverlet.collector" Version="6.0.4" PrivateAssets="all" />
     <PackageReference Include="GetPackFromProject" Version="1.0.6" PrivateAssets="all" />
     <ProjectReference Include="..\..\Verify.Nupkg\Verify.Nupkg.csproj" AddPackageAsOutput="true" />
   </ItemGroup>
