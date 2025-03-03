@@ -4,6 +4,7 @@
     "rollForward": "feature"
   },
   "msbuild-sdks": {
-    "Microsoft.Build.Traversal": "4.1.82"
+    "Microsoft.Build.Traversal": "4.1.82",
+    "MSTest.Sdk": "3.7.3"
   }
 }
