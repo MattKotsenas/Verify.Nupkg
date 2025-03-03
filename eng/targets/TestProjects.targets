@@ -3,9 +3,14 @@
     <When Condition="'$(IsTestProject)' == 'true'">
 
       <PropertyGroup>
+        <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+        <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+
         <!-- Enable test logging to TRX files and place them in the artifacts directory -->
-        <VSTestLogger>trx%3bLogFileName=$(MSBuildProjectName).trx</VSTestLogger>
-        <VSTestResultsDirectory Condition="'$(VSTestResultsDirectory)' == ''">$(ArtifactsTestResultsPath)/$(TargetFramework)</VSTestResultsDirectory>
+        <TestingPlatformCommandLineArguments>--report-trx --results-directory $(ArtifactsTestResultsPath)/$(TargetFramework)</TestingPlatformCommandLineArguments>
+
+        <!-- TODO: Fix Microsoft.Extensions.DependencyModel version conflict -->
+        <EnableMicrosoftTestingExtensionsCodeCoverage>false</EnableMicrosoftTestingExtensionsCodeCoverage>
       </PropertyGroup>
 
     </When>
