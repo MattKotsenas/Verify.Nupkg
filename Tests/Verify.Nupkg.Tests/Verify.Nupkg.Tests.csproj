@@ -13,7 +13,7 @@
     <PackageReference Include="MSBuild.ProjectCreation" Version="14.0.5" />
     <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" Version="22.0.3" />
     <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="22.0.11" />
-    <PackageReference Include="Verify.MSTest" Version="24.3.0-beta.4" /><!-- Testing MSTest source generator -->
+    <PackageReference Include="Verify.MSTest" Version="27.1.0" />
     <PackageReference Include="GetPackFromProject" Version="1.0.10" PrivateAssets="all" />
     <ProjectReference Include="..\..\Verify.Nupkg\Verify.Nupkg.csproj" AddPackageAsOutput="true" />
   </ItemGroup>
