@@ -6,12 +6,9 @@
 |   |-- net472
 |   |   |-- Verify.Nupkg.dll
 |   |   |-- Verify.Nupkg.xml
-|   |-- net6.0
-|   |   |-- Verify.Nupkg.dll
-|   |   |-- Verify.Nupkg.xml
-|   |-- net7.0
-|   |   |-- Verify.Nupkg.dll
-|   |   |-- Verify.Nupkg.xml
 |   |-- net8.0
+|   |   |-- Verify.Nupkg.dll
+|   |   |-- Verify.Nupkg.xml
+|   |-- net9.0
 |   |   |-- Verify.Nupkg.dll
 |   |   |-- Verify.Nupkg.xml
