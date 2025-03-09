@@ -3,7 +3,7 @@ namespace Verify.Nupkg.Tests;
 [TestClass]
 public partial class SimplePackageTests
 {
-    private string _simplePackage = SamplePackages.Instance.SimplePackage.Value.FullName;
+    private readonly string _simplePackage = SamplePackages.Instance.SimplePackage.Value.FullName;
 
     [TestMethod]
     public Task BasicTest()

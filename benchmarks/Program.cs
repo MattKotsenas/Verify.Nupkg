@@ -55,7 +55,8 @@ public class NuspecScrubbing
 
     private readonly VerifySettings _settings;
     private readonly Target _target;
-    private readonly string _verifyFile = Path.Combine(Directory.GetCurrentDirectory(), "can-be-anything.nuspec");
+    private readonly string _verifyDirectory = Directory.GetCurrentDirectory();
+    private readonly string _verifyFile = "can-be-anything.nuspec";
 
     public NuspecScrubbing()
     {
@@ -73,18 +74,28 @@ public class NuspecScrubbing
     {
         Func<InnerVerifier, Task<VerifyResult>> verify = _ => _.Verify(_target);
 
-        await new SettingsTask(_settings, async verifySettings =>
+        try
         {
-            using var verifier = new InnerVerifier(_verifyFile, verifySettings);
-            return await verify(verifier);
-        });
+            await new SettingsTask(_settings, async verifySettings =>
+            {
+                using var verifier = new InnerVerifier(_verifyDirectory, _verifyFile, verifySettings);
+                return await verify(verifier);
+            });
+        }
+        catch (Exception)
+        {
+            // Mismatch is expected
+        }
     }
 
     [GlobalCleanup]
     public void Cleanup()
     {
-        string verifiedFile = _verifyFile.Replace(".nuspec", ".verified.nuspec");
-        File.Delete(verifiedFile);
+        string receivedFile = Path.Combine(_verifyFile, _verifyFile.Replace(".nuspec", ".verified.nuspec"));
+        string verifiedFile = Path.Combine(_verifyFile, _verifyFile.Replace(".nuspec", ".verified.nuspec"));
+
+        if (File.Exists(receivedFile)) { File.Delete(receivedFile); }
+        if (File.Exists(verifiedFile)) { File.Delete(verifiedFile); }
     }
 }
 
