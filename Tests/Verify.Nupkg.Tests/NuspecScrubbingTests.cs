@@ -3,13 +3,13 @@
 [TestClass]
 public partial class NuspecScrubbingTests
 {
-    private string _packageWithRepoGitExtension = SamplePackages.Instance.PackageWithRepoGitExtension.Value.FullName;
-    private string _packageWithoutRepoGitExtension = SamplePackages.Instance.PackageWithoutRepoGitExtension.Value.FullName;
-    private string _packageWithoutRepoHttps = SamplePackages.Instance.PackageWithoutRepoHttps.Value.FullName;
-    private string _packageWithoutRepoGitHubDomain = SamplePackages.Instance.PackageWithoutRepoGitHubDomain.Value.FullName;
-    private string _packageWithoutRepoUrl = SamplePackages.Instance.PackageWithoutRepoUrl.Value.FullName;
-    private string _packageWithoutRepoCommit = SamplePackages.Instance.PackageWithoutRepoCommit.Value.FullName;
-    private string _packageWithoutRepoBranch = SamplePackages.Instance.PackageWithoutRepoBranch.Value.FullName;
+    private readonly string _packageWithRepoGitExtension = SamplePackages.Instance.PackageWithRepoGitExtension.Value.FullName;
+    private readonly string _packageWithoutRepoGitExtension = SamplePackages.Instance.PackageWithoutRepoGitExtension.Value.FullName;
+    private readonly string _packageWithoutRepoHttps = SamplePackages.Instance.PackageWithoutRepoHttps.Value.FullName;
+    private readonly string _packageWithoutRepoGitHubDomain = SamplePackages.Instance.PackageWithoutRepoGitHubDomain.Value.FullName;
+    private readonly string _packageWithoutRepoUrl = SamplePackages.Instance.PackageWithoutRepoUrl.Value.FullName;
+    private readonly string _packageWithoutRepoCommit = SamplePackages.Instance.PackageWithoutRepoCommit.Value.FullName;
+    private readonly string _packageWithoutRepoBranch = SamplePackages.Instance.PackageWithoutRepoBranch.Value.FullName;
 
     [TestMethod]
     public Task DoNotScrubGitExtensionOnRepoUrl()
@@ -78,6 +78,6 @@ public partial class NuspecScrubbingTests
         settings.UseUniqueDirectory();
         settings.ScrubNuspec();
 
-        return VerifyFile(_packageWithoutRepoUrl, settings);
+        return VerifyFile(_packageWithoutRepoBranch, settings);
     }
 }
