@@ -1,16 +1,21 @@
 <Project>
-  <Target Name="_VerifyNupkgGenerateNuspecBaseline" AfterTargets="Pack">
-  
-  <!-- <Target
-    Name="_SquiggleCop_Run"
-    Condition="'$(SquiggleCop_Enabled)' == 'true'"
-    DependsOnTargets="Compile;_SquiggleCop_CalculateInputsOutputs"
-    BeforeTargets="AfterBuild"
-    Inputs="@(IntermediateAssembly);$(_SquiggleCop_ErrorLog)"
-    Outputs="@(SquiggleCop_BaselineFiles)"
-    Returns="@(SquiggleCop_BaselineFiles)"> -->
+  <!-- TODO: If $(NuspecFile) is set, use that; otherwise use @(NuGetPackOutput) -->
+  <Target
+    Name="_VerifyNupkgGenerateNuspecBaseline"
+    AfterTargets="Pack"
+    DependsOnTargets="$(PackDependsOn)"
+    Inputs="@(NuGetPackOutput);$(NuspecFile)"
+    Outputs="$(IntermediateOutputPath)/Verify.Nupkg.Tasks.stamp"
+    >
 
-    <VerifyNuspec
-        NuspecFile="" />
+    <!-- TODO: Verify incremental build -->
+  
+    <VerifyNupkg
+      NuspecFile="$(NuspecFile)"
+      NuGetPackOutput="@(NuGetPackOutput)" />
+
+    <Touch
+      Files="$(IntermediateOutputPath)/Verify.Nupkg.Tasks.stamp"
+      AlwaysCreate="true" />
   </Target>
 </Project>

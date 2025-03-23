@@ -4,14 +4,10 @@
   <PropertyGroup Label="TreatAsLocal properties">
     <TaskFolder Condition=" '$(MSBuildRuntimeType)' == 'Core' ">net8.0</TaskFolder>
     <TaskFolder Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net472</TaskFolder>
-    <TaskAssembly>$(MSBuildThisFileDirectory)../tasks/$(TaskFolder)/SquiggleCop.Tasks.dll</TaskAssembly>
+    <TaskAssembly>$(MSBuildThisFileDirectory)../tasks/$(TaskFolder)/Verify.Nupkg.Tasks.dll</TaskAssembly>
   </PropertyGroup>
 
   <PropertyGroup>
-  <!-- TODO: Clean this up -->
-    <SquiggleCop_BaselineFileName Condition="'$(SquiggleCop_BaselineFileName)' == ''">SquiggleCop.Baseline.yaml</SquiggleCop_BaselineFileName>
-    <SquiggleCop_AutoBaseline Condition="'$(SquiggleCop_AutoBaseline)' == ''">false</SquiggleCop_AutoBaseline>
-    <SquiggleCop_Enabled Condition="'$(SquiggleCop_Enabled)' == ''">true</SquiggleCop_Enabled>
   </PropertyGroup>
 
   <UsingTask TaskName="Verify.Nupkg.Tasks" AssemblyFile="$(TaskAssembly)" />
