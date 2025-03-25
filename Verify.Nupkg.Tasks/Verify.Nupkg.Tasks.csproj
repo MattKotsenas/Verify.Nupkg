@@ -49,12 +49,12 @@
   <!-- TODO: Clean this up -->
   <ItemGroup>
     <!-- TODO: Do CPM -->
-    <PackageReference Include="Polyfill" Version="2.1.0" PrivateAssets="all" Version="17.7.2" />
-    <ProjectReference Include="../Verify.Nupkg/Verify.Nupkg.csproj" />
+    <PackageReference Include="Polyfill" Version="6.14.0" PrivateAssets="all" />
+    <ProjectReference Include="../Verify.Nupkg/Verify.Nupkg.csproj" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Utilities.Core" PrivateAssets="All" ExcludeAssets="Runtime" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.7.2" PrivateAssets="All" ExcludeAssets="Runtime" />
   </ItemGroup>
 
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
@@ -66,9 +66,9 @@
 
   <!-- This target adds the generated deps.json file to our package output -->
   <Target Name="AddBuildDependencyFileToBuiltProjectOutputGroupOutput" BeforeTargets="BuiltProjectOutputGroup" Condition=" '$(GenerateDependencyFile)' == 'true'">
-
     <ItemGroup>
       <BuiltProjectOutputGroupOutput Include="$(ProjectDepsFilePath)" TargetPath="$(ProjectDepsFileName)" FinalOutputPath="$(ProjectDepsFilePath)" />
     </ItemGroup>
+  </Target>
 
 </Project>
