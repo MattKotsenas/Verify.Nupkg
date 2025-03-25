@@ -4,6 +4,7 @@
     "rollForward": "feature"
   },
   "msbuild-sdks": {
+    "DotNet.ReproducibleBuilds.Isolated": "1.2.25",
     "Microsoft.Build.Traversal": "4.1.82",
     "MSTest.Sdk": "3.8.2"
   }
