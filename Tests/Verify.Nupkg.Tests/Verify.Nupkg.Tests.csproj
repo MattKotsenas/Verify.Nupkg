@@ -18,14 +18,4 @@
     <ProjectReference Include="..\..\Verify.Nupkg\Verify.Nupkg.csproj" AddPackageAsOutput="true" />
   </ItemGroup>
 
-  <!--
-    TODO: This should happen automatically when including Verify.
-    Unclear why this needs to be added manually in this case.
-  -->
-  <ItemGroup>
-    <None Update="**\*.received.*;**\*.verified.*" Condition="$(Language) == 'C#'">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0].Split('(')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).cs</DependentUpon>
-    </None>
-  </ItemGroup>
 </Project>
