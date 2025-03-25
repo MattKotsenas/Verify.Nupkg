@@ -14,70 +14,42 @@ public partial class NuspecScrubbingTests
     [TestMethod]
     public Task DoNotScrubGitExtensionOnRepoUrl()
     {
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-        settings.ScrubNuspec();
-
-        return VerifyFile(_packageWithRepoGitExtension, settings);
+        return VerifyFile(_packageWithRepoGitExtension).ScrubNuspec();
     }
 
     [TestMethod]
     public Task AddGitExtensionToRepoUrl()
     {
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-        settings.ScrubNuspec();
-
-        return VerifyFile(_packageWithoutRepoGitExtension, settings);
+        return VerifyFile(_packageWithoutRepoGitExtension).ScrubNuspec();
     }
 
     [TestMethod]
     public Task DoNotScrubNonHttpsRepoUrl()
     {
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-        settings.ScrubNuspec();
-
-        return VerifyFile(_packageWithoutRepoHttps, settings);
+        return VerifyFile(_packageWithoutRepoHttps).ScrubNuspec();
     }
 
     [TestMethod]
     public Task DoNotScrubNonGitHubDomainRepoUrl()
     {
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-        settings.ScrubNuspec();
-
-        return VerifyFile(_packageWithoutRepoGitHubDomain, settings);
+        return VerifyFile(_packageWithoutRepoGitHubDomain).ScrubNuspec();
     }
 
     [TestMethod]
     public Task SkipScrubbingForRepoWithNoCommit()
     {
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-        settings.ScrubNuspec();
-
-        return VerifyFile(_packageWithoutRepoCommit, settings);
+        return VerifyFile(_packageWithoutRepoCommit).ScrubNuspec();
     }
 
     [TestMethod]
     public Task SkipScrubbingForRepoWithNoUrl()
     {
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-        settings.ScrubNuspec();
-
-        return VerifyFile(_packageWithoutRepoUrl, settings);
+        return VerifyFile(_packageWithoutRepoUrl).ScrubNuspec();
     }
 
     [TestMethod]
     public Task SkipScrubbingForRepoWithNoBranch()
     {
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-        settings.ScrubNuspec();
-
-        return VerifyFile(_packageWithoutRepoBranch, settings);
+        return VerifyFile(_packageWithoutRepoBranch).ScrubNuspec();
     }
 }
