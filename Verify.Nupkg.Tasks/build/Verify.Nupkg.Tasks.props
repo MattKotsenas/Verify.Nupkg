@@ -10,5 +10,5 @@
   <PropertyGroup>
   </PropertyGroup>
 
-  <UsingTask TaskName="Verify.Nupkg.Tasks" AssemblyFile="$(TaskAssembly)" />
+  <UsingTask TaskName="VerifyNuspec" AssemblyFile="$(TaskAssembly)" />
 </Project>
