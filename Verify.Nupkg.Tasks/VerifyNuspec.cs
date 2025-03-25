@@ -16,8 +16,8 @@ public class VerifyNuspec : Task
     /// </summary>
     public ITaskItem[]? NuGetPackOutput { get; set; }
 
-    [Required]
-    public string BaselineFile { get; set; } = null!;
+    // [Required]
+    // public string BaselineFile { get; set; } = null!;
 
     /// <summary>
     /// Validate the .nuspec file against the baseline.
