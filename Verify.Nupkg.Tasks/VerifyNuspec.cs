@@ -53,7 +53,10 @@ public class VerifyNuspec : Task
             VerifySettings settings = new();
             settings.ScrubNuspec();
 
-            using var verifier = new InnerVerifier(filePath, settings);
+            string directory = Path.GetDirectoryName(filePath)!;
+            string name = Path.GetFileName(filePath);
+
+            using var verifier = new InnerVerifier(directory, name, settings);
             verifier.Verify().GetAwaiter().GetResult();
 
             // return VerifyFile(packagePath, settings);

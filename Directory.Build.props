@@ -10,4 +10,5 @@
   <Import Project="eng/targets/ReproducibleBuilds.props" />
   <Import Project="eng/targets/TestProjects.props" />
   <Import Project="eng/targets/Versioning.props" />
+  <Import Project="eng/targets/Packaging.props" />
 </Project>
