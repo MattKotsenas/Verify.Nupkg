@@ -8,25 +8,15 @@ public partial class SimplePackageTests
     [TestMethod]
     public Task BasicTest()
     {
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-        settings.ScrubNuspec();
-
-        return VerifyFile(_simplePackage, settings);
+        return VerifyFile(_simplePackage).ScrubNuspec();
     }
 
     [TestMethod]
     public Task CustomFileExclusionTest()
     {
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-        settings.ScrubNuspec();
-        settings.AddNupkgDiffSettings(settings =>
-        {
-            settings.ExcludedFiles = [new(@"\.psmdcp$"), new(@"\.nuspec$")];
-        });
-
-        return VerifyFile(_simplePackage, settings);
+        return VerifyFile(_simplePackage)
+            .ScrubNuspec()
+            .AddNupkgDiffSettings(settings => settings.ExcludedFiles = [new(@"\.psmdcp$"), new(@"\.nuspec$")]);
     }
 
     [TestMethod]
@@ -36,14 +26,9 @@ public partial class SimplePackageTests
         //  - Version
         //  - Schema
         // to validate that only scrubbers we opt-in to are applied.
-
-        VerifySettings settings = new();
-        settings.UseUniqueDirectory();
-
-        settings.ScrubNuspecCommit();
-        settings.ScrubNuspecRepositoryUrl();
-        settings.ScrubNuspecBranch();
-
-        return VerifyFile(_simplePackage, settings);
+        return VerifyFile(_simplePackage)
+            .ScrubNuspecCommit()
+            .ScrubNuspecRepositoryUrl()
+            .ScrubNuspecBranch();
     }
 }
