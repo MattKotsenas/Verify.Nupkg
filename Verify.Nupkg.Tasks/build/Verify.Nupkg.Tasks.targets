@@ -1,17 +1,21 @@
 <Project>
-  <!-- TODO: If $(NuspecFile) is set, use that; otherwise use @(NuGetPackOutput) -->
+
+  <PropertyGroup>
+    <VerifyNupkgBaselineFile Condition=" '$(VerifyNupkgBaselineFile)' == '' ">$(MSBuildProjectDirectory)/$(MSBuildProjectName).verified.nuspec</VerifyNupkgBaselineFile>
+  </PropertyGroup>
+
   <Target
     Name="_VerifyNupkgGenerateNuspecBaseline"
     AfterTargets="Pack"
     DependsOnTargets="$(PackDependsOn)"
-    Inputs="@(NuGetPackOutput);$(NuspecFile)"
+    Inputs="@(NuGetPackOutput);$(NuspecFileAbsolutePath)"
     Outputs="$(IntermediateOutputPath)/Verify.Nupkg.Tasks.stamp"
     >
 
     <!-- TODO: Verify incremental build -->
   
-    <VerifyNupkg
-      NuspecFile="$(NuspecFile)"
+    <VerifyNuspec
+      NuspecFileAbsolutePath="$(NuspecFileAbsolutePath)"
       NuGetPackOutput="@(NuGetPackOutput)" />
 
     <Touch

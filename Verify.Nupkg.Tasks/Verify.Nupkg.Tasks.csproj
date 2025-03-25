@@ -40,10 +40,8 @@
 
   <!-- TODO: Clean this up -->
   <ItemGroup Label="Package contents">
-    <Content Include="build/SquiggleCop.Tasks.props" PackagePath="build/" />
-    <Content Include="build/SquiggleCop.Tasks.targets" PackagePath="build/" />
-    <Content Include="buildTransitive/SquiggleCop.Tasks.props" PackagePath="buildTransitive/" />
-    <Content Include="buildTransitive/SquiggleCop.Tasks.targets" PackagePath="buildTransitive/" />
+    <Content Include="build/Verify.Nupkg.Tasks.props" PackagePath="build/" />
+    <Content Include="build/Verify.Nupkg.Tasks.targets" PackagePath="build/" />
     <Content Include="$(RepoRoot)/README.md" PackagePath="/" />
     <Content Include="$(RepoRoot)/icon.png" PackagePath="/" />
   </ItemGroup>
@@ -52,7 +50,7 @@
   <ItemGroup>
     <!-- TODO: Do CPM -->
     <PackageReference Include="Polyfill" Version="2.1.0" PrivateAssets="all" Version="17.7.2" />
-    <PackageReference Include="Verify" Version="23.0.1" />
+    <ProjectReference Include="../Verify.Nupkg/Verify.Nupkg.csproj" />
   </ItemGroup>
 
   <ItemGroup>
