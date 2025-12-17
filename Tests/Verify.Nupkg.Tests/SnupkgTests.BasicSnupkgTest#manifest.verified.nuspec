@@ -1,0 +1,14 @@
+﻿<package>
+  <metadata>
+    <id>SimplePackageWithSymbols</id>
+    <version>********</version>
+    <description>Package Description</description>
+    <packageTypes>
+      <packageType name="SymbolsPackage" />
+    </packageTypes>
+    <repository type="git" url="https://github.com/********/Verify.Nupkg.git" branch="********" commit="****************************************" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+</package>

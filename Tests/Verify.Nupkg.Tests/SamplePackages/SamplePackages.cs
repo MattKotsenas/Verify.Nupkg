@@ -19,6 +19,7 @@ internal class SamplePackages
     public Lazy<IFileInfo> PackageWithoutRepoUrl { get; private set; }
     public Lazy<IFileInfo> PackageWithoutRepoCommit { get; private set; }
     public Lazy<IFileInfo> PackageWithoutRepoBranch { get; private set; }
+    public Lazy<(IFileInfo Nupkg, IFileInfo Snupkg)> SimplePackageWithSymbols { get; private set; }
 
     private SamplePackages()
     {
@@ -32,6 +33,7 @@ internal class SamplePackages
         PackageWithoutRepoUrl = new Lazy<IFileInfo>(() => new PackageWithoutRepoUrlOrCommitOrBranch().Create(workingDirectory));
         PackageWithoutRepoCommit = new Lazy<IFileInfo>(() => new PackageWithoutRepoUrlOrCommitOrBranch().Create(workingDirectory));
         PackageWithoutRepoBranch = new Lazy<IFileInfo>(() => new PackageWithoutRepoUrlOrCommitOrBranch().Create(workingDirectory));
+        SimplePackageWithSymbols = new Lazy<(IFileInfo, IFileInfo)>(() => new SimplePackageWithSymbols().CreateWithSymbols(workingDirectory));
     }
 
     private IDirectoryInfo GetWorkingDirectory()

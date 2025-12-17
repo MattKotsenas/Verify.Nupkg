@@ -6,7 +6,7 @@
 ![Nuget](https://img.shields.io/nuget/v/Verify.Nupkg)
 [![Downloads](https://img.shields.io/nuget/dt/Verify.Nupkg)](https://nuget.org/packages/Verify.Nupkg)
 
-Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of [NuGet .nupkg](https://learn.microsoft.com/en-us/nuget/what-is-nuget) files.
+Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of [NuGet .nupkg](https://learn.microsoft.com/en-us/nuget/what-is-nuget) and [.snupkg (symbol package)](https://learn.microsoft.com/en-us/nuget/create-packages/symbol-packages-snupkg) files.
 
 The plugin does not do a naive binary comparison, as that would cause a large amount of verification churn. Instead,
 the contents of the .nuspec file are verified, along with a tree view of the package files.
@@ -50,8 +50,7 @@ If you want to follow packing best practices (validating a README, reproducible 
 
 ```csharp
 [ModuleInitializer]
-public static void Initialize() =>
-    VerifyNupkg.Initialize();
+public static void Initialize() => VerifyNupkg.Initialize();
 ```
 
 ### File path
@@ -60,7 +59,7 @@ public static void Initialize() =>
 [Fact]
 public Task VerifyNupkgFile()
 {
-    string packagePath = "path/to/package.nupkg";
+    string packagePath = "path/to/package.nupkg"; // or .snupkg
 
     VerifySettings settings = new();
     settings.UseUniqueDirectory(); // Optional; group files into a directory
@@ -96,8 +95,15 @@ VerifySettings settings = new();
 settings.ScrubNuspec();
 ```
 
-which itself is a convenience method for `ScrubNuspecVersion()` and `ScrubNuspecCommit()`. Feel free to use them
-separately if you'd like to verify either of these values.
+which itself is a convenience method for these scrubbers:
+
+- `ScrubNuspecVersion()`
+- `ScrubNuspecCommit()`
+- `ScrubNuspecSchema()`
+- `ScrubNuspecRepositoryUrl()`
+- `ScrubNuspecBranch()`
+
+Feel free to use them separately if you'd like to verify any of these values.
 
 ### Referencing / locating a package built in the same solution
 
