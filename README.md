@@ -48,12 +48,75 @@ If you want to follow packing best practices (validating a README, reproducible 
 
 ## Usage
 
+There are two ways to use Verify.Nupkg:
+
+1. **MSBuild Task (Recommended)** - Automatically verifies packages during the `Pack` target
+2. **Test-based** - Verify packages in your test suite using the Verify testing library
+
+### MSBuild Task (Recommended)
+
+The simplest way to use Verify.Nupkg is via the `Verify.Nupkg.Tasks` package, which runs automatically
+after the `Pack` target. This approach requires no test code and integrates directly into your build process.
+
+#### Installation
+
+Add the package as a `GlobalPackageReference` in your `Directory.Packages.props` (or `Directory.Build.props` if not using Central Package Management):
+
+```xml
+<ItemGroup>
+  <GlobalPackageReference Include="Verify.Nupkg.Tasks" Version="*" />
+</ItemGroup>
+```
+
+Alternatively, add it to individual projects:
+
+```xml
+<ItemGroup>
+  <PackageReference Include="Verify.Nupkg.Tasks" Version="*" PrivateAssets="all" />
+</ItemGroup>
+```
+
+#### How it works
+
+When you run `dotnet pack` (or build with `GeneratePackageOnBuild`), the task automatically:
+
+1. Verifies the `.nupkg` and `.snupkg` files against baseline files
+2. Stores baselines in a `NupkgBaselines/` directory in your project folder
+3. Reports mismatches as build warnings
+
+On first run, the task creates baseline files. Subsequent runs compare against those baselines and warn if the package contents change unexpectedly.
+
+#### Configuration
+
+You can configure the task behavior with MSBuild properties:
+
+| Property | Default | Description |
+|----------|---------|-------------|
+| `VerifyNupkgEnabled` | `true` | Set to `false` to disable verification |
+| `VerifyNupkgDirectory` | `$(MSBuildProjectDirectory)/NupkgBaselines/` | Directory for baseline files |
+
+Example:
+
+```xml
+<PropertyGroup>
+  <VerifyNupkgDirectory>$(MSBuildProjectDirectory)/Baselines/</VerifyNupkgDirectory>
+</PropertyGroup>
+```
+
+---
+
+### Test-based Usage
+
+If you prefer to verify packages as part of your test suite, use the `Verify.Nupkg` package directly.
+
+#### Setup
+
 ```csharp
 [ModuleInitializer]
 public static void Initialize() => VerifyNupkg.Initialize();
 ```
 
-### File path
+#### Verifying a package
 
 ```csharp
 [Fact]
@@ -86,7 +149,7 @@ settings.AddNupkgDiffSettings(settings =>
 });
 ```
 
-### Custom scrubbers
+#### Custom scrubbers
 
 .nuspec files often contain sources of verification churn. Use `VerifierSettings.ScrubNuspec()` like this:
 
@@ -105,7 +168,7 @@ which itself is a convenience method for these scrubbers:
 
 Feel free to use them separately if you'd like to verify any of these values.
 
-### Referencing / locating a package built in the same solution
+#### Referencing / locating a package built in the same solution
 
 Verify is ideally suited for writing integration / snapshot tests of NuGet package contents.
 However, ensuring a project creates a fresh NuGet package and locating it for testing can be
