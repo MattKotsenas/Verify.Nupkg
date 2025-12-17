@@ -14,14 +14,17 @@
     <repository type="git" url="https://github.com/********/Verify.Nupkg.git" branch="********" commit="****************************************" />
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
-        <dependency id="Verify" version="28.13.0" exclude="Build,Analyzers" />
+        <dependency id="Verify" version="31.9.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net8.0">
-        <dependency id="Verify" version="28.13.0" exclude="Build,Analyzers" />
+        <dependency id="Verify" version="31.9.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net9.0">
-        <dependency id="Verify" version="28.13.0" exclude="Build,Analyzers" />
+        <dependency id="Verify" version="31.9.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Runtime.InteropServices.RuntimeInformation" targetFramework=".NETFramework4.7.2" />
+    </frameworkAssemblies>
   </metadata>
 </package>

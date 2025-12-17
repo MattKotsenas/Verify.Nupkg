@@ -29,16 +29,16 @@ public static class VerifyNupkg
 
         InnerVerifier.ThrowIfVerifyHasBeenRun();
 
-        VerifierSettings.RegisterFileConverter(
-            fromExtension: "nupkg",
+        VerifierSettings.RegisterStreamConverter(
+            extension: "nupkg",
             conversion: ConvertNuGetPackage);
 
-        VerifierSettings.RegisterFileConverter(
-            fromExtension: "snupkg",
+        VerifierSettings.RegisterStreamConverter(
+            extension: "snupkg",
             conversion: ConvertNuGetPackage);
     }
 
-    private static async Task<ConversionResult> ConvertNuGetPackage(Stream stream, IReadOnlyDictionary<string, object> settings)
+    private static async Task<ConversionResult> ConvertNuGetPackage(string? name, Stream stream, IReadOnlyDictionary<string, object> settings)
     {
         NupkgDiffSettings diffSettings = settings.GetNupkgDiffSettingsOrDefault();
 
