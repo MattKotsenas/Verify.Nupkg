@@ -1,0 +1,7 @@
+﻿/
+|-- [Content_Types].xml
+|-- _rels
+|   |-- .rels
+|-- lib
+|   |-- net8.0
+|   |   |-- SimplePackageWithSymbols.pdb

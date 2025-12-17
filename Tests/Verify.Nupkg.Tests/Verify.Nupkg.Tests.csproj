@@ -6,6 +6,8 @@
     <TargetFrameworks>$(TargetFrameworks);net8.0;net9.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <!-- Allow downgrade of System.Text.Json to 8.0.x for net472 compatibility. Remove this once STJ is resolved. -->
+    <NoWarn>$(NoWarn);NU1605;NU1109</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +18,14 @@
     <PackageReference Include="Verify.MSTest" />
     <PackageReference Include="GetPackFromProject" PrivateAssets="all" />
     <ProjectReference Include="..\..\Verify.Nupkg\Verify.Nupkg.csproj" AddPackageAsOutput="true" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <!--
+      Pin System.Text.Json to 8.0.x on net472, as NuGet.Packaging requires 8.x and Microsoft.Build pulls in 9.x
+    -->
+    <PackageReference Include="System.Text.Encodings.Web" VersionOverride="8.0.0" />
+    <PackageReference Include="System.Text.Json" VersionOverride="8.0.5" />
   </ItemGroup>
 
   <!--

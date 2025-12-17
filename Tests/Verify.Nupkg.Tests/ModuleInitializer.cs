@@ -1,5 +1,6 @@
-﻿using Microsoft.Build.Utilities.ProjectCreation;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
+
+using Microsoft.Build.Utilities.ProjectCreation;
 
 namespace Verify.Nupkg.Tests;
 

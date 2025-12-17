@@ -67,4 +67,44 @@ internal abstract class PackageCreator
 
         return destinationPackage;
     }
+
+    /// <summary>
+    /// Creates the package with symbols in a temp directory and copies both .nupkg and .snupkg to the specified destination directory.
+    /// </summary>
+    /// <param name="destinationDirectory">The directory to copy the packages to.</param>
+    /// <returns>A tuple containing <see cref="IFileInfo"/> for the .nupkg and .snupkg files.</returns>
+    /// <exception cref="Exception">If the build fails.</exception>
+    public (IFileInfo Nupkg, IFileInfo Snupkg) CreateWithSymbols(IDirectoryInfo destinationDirectory)
+    {
+        IFileInfo destinationPackage = _fs.FileInfo.New(_fs.Path.Combine(destinationDirectory.FullName, $"{Name}.nupkg"));
+        IFileInfo destinationSymbolPackage = _fs.FileInfo.New(_fs.Path.Combine(destinationDirectory.FullName, $"{Name}.snupkg"));
+
+        using (_fs.CreateDisposableDirectory(RetryableTempDirectory.GetRandomTempPath(), dirInfo => new RetryableTempDirectory(dirInfo), out IDirectoryInfo temp))
+        {
+            using (PackageRepository.Create(temp.FullName, feeds: new Uri("https://api.nuget.org/v3/index.json")))
+            {
+                CreateCore(temp)
+                    .Target(name: "CopyPackageForTests", afterTargets: "Pack")
+                        .Task(name: "Copy", parameters: new Dictionary<string, string?>
+                        {
+                            { "SourceFiles", @"$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" },
+                            { "DestinationFiles", destinationPackage.FullName },
+                        })
+                        .Task(name: "Copy", parameters: new Dictionary<string, string?>
+                        {
+                            { "SourceFiles", @"$(OutputPath)..\$(PackageId).$(PackageVersion).snupkg" },
+                            { "DestinationFiles", destinationSymbolPackage.FullName },
+                        })
+                    .Save(_fs.Path.Combine(temp.FullName, $"{Name}.csproj"))
+                    .TryBuild(restore: true, target: "Pack", out bool result, out BuildOutput buildOutput, out IDictionary<string, TargetResult>? outputs);
+
+                if (!result)
+                {
+                    throw new Exception($"Failed to build in path '{temp.FullName}'. Errors: {string.Join(Environment.NewLine, buildOutput.Errors)}");
+                }
+            }
+        }
+
+        return (destinationPackage, destinationSymbolPackage);
+    }
 }

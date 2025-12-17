@@ -3,7 +3,7 @@
 namespace VerifyTests;
 
 /// <summary>
-/// Plugin for Verify to handle .nupkg files.
+/// Plugin for Verify to handle .nupkg and .snupkg files.
 /// </summary>
 public static class VerifyNupkg
 {
@@ -16,7 +16,7 @@ public static class VerifyNupkg
     public static bool Initialized { get; private set; }
 
     /// <summary>
-    /// Register the .nupkg file converter for Verify.
+    /// Register the .nupkg and .snupkg file converters for Verify.
     /// </summary>
     public static void Initialize()
     {
@@ -31,24 +31,30 @@ public static class VerifyNupkg
 
         VerifierSettings.RegisterFileConverter(
             fromExtension: "nupkg",
-            conversion: async (stream, settings) =>
-            {
-                NupkgDiffSettings diffSettings = settings.GetNupkgDiffSettingsOrDefault();
+            conversion: ConvertNuGetPackage);
 
-                using var zip = new ZipArchive(stream, ZipArchiveMode.Read, leaveOpen: true);
+        VerifierSettings.RegisterFileConverter(
+            fromExtension: "snupkg",
+            conversion: ConvertNuGetPackage);
+    }
 
-                using Stream nuspecStream = zip.Entries.Single(e => e.Name.EndsWith(".nuspec", StringComparison.OrdinalIgnoreCase)).Open();
-                using StreamReader reader = new(nuspecStream);
+    private static async Task<ConversionResult> ConvertNuGetPackage(Stream stream, IReadOnlyDictionary<string, object> settings)
+    {
+        NupkgDiffSettings diffSettings = settings.GetNupkgDiffSettingsOrDefault();
 
-                string manifest = await reader.ReadToEndAsync();
-                string contents = zip.ListPackageContents(diffSettings.ExcludedFiles);
+        using var zip = new ZipArchive(stream, ZipArchiveMode.Read, leaveOpen: true);
 
-                Target[] targets = [
-                    new Target(extension: "nuspec", data: manifest, name: "manifest"),
-                    new Target(extension: "txt", data: contents, name: "contents"),
-                ];
+        using Stream nuspecStream = zip.Entries.Single(e => e.Name.EndsWith(".nuspec", StringComparison.OrdinalIgnoreCase)).Open();
+        using StreamReader reader = new(nuspecStream);
 
-                return new ConversionResult(info: null, targets: targets);
-            });
+        string manifest = await reader.ReadToEndAsync();
+        string contents = zip.ListPackageContents(diffSettings.ExcludedFiles);
+
+        Target[] targets = [
+            new Target(extension: "nuspec", data: manifest, name: "manifest"),
+            new Target(extension: "txt", data: contents, name: "contents"),
+        ];
+
+        return new ConversionResult(info: null, targets: targets);
     }
 }
