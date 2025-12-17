@@ -1,5 +1,0 @@
-﻿/
-|-- PackageWithoutRepoGitHubDomain.nuspec
-|-- lib
-|   |-- net8.0
-|   |   |-- PackageWithoutRepoGitHubDomain.dll

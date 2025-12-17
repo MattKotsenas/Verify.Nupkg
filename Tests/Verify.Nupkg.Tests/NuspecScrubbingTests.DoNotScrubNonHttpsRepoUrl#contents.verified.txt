@@ -1,5 +1,0 @@
-﻿/
-|-- PackageWithoutRepoHttps.nuspec
-|-- lib
-|   |-- net8.0
-|   |   |-- PackageWithoutRepoHttps.dll

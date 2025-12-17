@@ -1,5 +1,6 @@
 ﻿/
+|-- README.md
 |-- SimplePackageWithSymbols.nuspec
 |-- lib
 |   |-- net8.0
-|   |   |-- SimplePackageWithSymbols.pdb
+|   |   |-- SimplePackageWithSymbols.dll

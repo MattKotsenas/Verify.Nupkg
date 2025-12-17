@@ -2,10 +2,9 @@
   <metadata>
     <id>SimplePackageWithSymbols</id>
     <version>********</version>
+    <authors>SimplePackageWithSymbols</authors>
+    <readme>README.md</readme>
     <description>Package Description</description>
-    <packageTypes>
-      <packageType name="SymbolsPackage" />
-    </packageTypes>
     <repository type="git" url="https://github.com/********/Verify.Nupkg.git" branch="********" commit="****************************************" />
     <dependencies>
       <group targetFramework="net8.0" />

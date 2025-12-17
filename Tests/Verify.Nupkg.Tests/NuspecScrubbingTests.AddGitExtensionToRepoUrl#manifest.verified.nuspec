@@ -1,8 +1,8 @@
 ﻿<package>
   <metadata>
-    <id>SimplePackage</id>
+    <id>SimplePackageWithSymbols</id>
     <version>********</version>
-    <authors>SimplePackage</authors>
+    <authors>SimplePackageWithSymbols</authors>
     <readme>README.md</readme>
     <description>Package Description</description>
     <repository type="git" url="https://github.com/********/Verify.Nupkg.git" branch="********" commit="****************************************" />

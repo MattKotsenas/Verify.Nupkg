@@ -1,5 +1,0 @@
-﻿/
-|-- PackageWithoutRepoUrlOrCommitOrBranch.nuspec
-|-- lib
-|   |-- net8.0
-|   |   |-- PackageWithoutRepoUrlOrCommitOrBranch.dll

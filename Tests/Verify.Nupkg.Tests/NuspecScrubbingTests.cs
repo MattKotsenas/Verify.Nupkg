@@ -3,53 +3,195 @@
 [TestClass]
 public partial class NuspecScrubbingTests
 {
-    private readonly string _packageWithRepoGitExtension = SamplePackages.Instance.PackageWithRepoGitExtension.Value.FullName;
-    private readonly string _packageWithoutRepoGitExtension = SamplePackages.Instance.PackageWithoutRepoGitExtension.Value.FullName;
-    private readonly string _packageWithoutRepoHttps = SamplePackages.Instance.PackageWithoutRepoHttps.Value.FullName;
-    private readonly string _packageWithoutRepoGitHubDomain = SamplePackages.Instance.PackageWithoutRepoGitHubDomain.Value.FullName;
-    private readonly string _packageWithoutRepoUrl = SamplePackages.Instance.PackageWithoutRepoUrl.Value.FullName;
-    private readonly string _packageWithoutRepoCommit = SamplePackages.Instance.PackageWithoutRepoCommit.Value.FullName;
-    private readonly string _packageWithoutRepoBranch = SamplePackages.Instance.PackageWithoutRepoBranch.Value.FullName;
-
     [TestMethod]
     public Task DoNotScrubGitExtensionOnRepoUrl()
     {
-        return VerifyFile(_packageWithRepoGitExtension).ScrubNuspec();
+        string manifest =
+            """
+            <?xml version="1.0" encoding="utf-8"?>
+            <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+              <metadata>
+                <id>PackageWithRepoGitExtension</id>
+                <version>1.0.0</version>
+                <authors>PackageWithRepoGitExtension</authors>
+                <description>Package Description</description>
+                <repository type="git" url="https://github.com/MattKotsenas/Verify.Nupkg.git" commit="0e4d1b598f350b3dc675018d539114d1328189ef" />
+                <dependencies>
+                  <group targetFramework="net8.0" />
+                </dependencies>
+              </metadata>
+            </package>
+            """;
+
+        return Verifier.Verify(new Target(extension: "nuspec", data: manifest, name: "manifest")).ScrubNuspec();
     }
 
     [TestMethod]
     public Task AddGitExtensionToRepoUrl()
     {
-        return VerifyFile(_packageWithoutRepoGitExtension).ScrubNuspec();
+        string manifest =
+            """
+            <?xml version="1.0" encoding="utf-8"?>
+            <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+              <metadata>
+                <id>SimplePackageWithSymbols</id>
+                <version>1.0.0</version>
+                <authors>SimplePackageWithSymbols</authors>
+                <readme>README.md</readme>
+                <description>Package Description</description>
+                <repository type="git" url="https://github.com/MattKotsenas/Verify.Nupkg" branch="dev" commit="0e4d1b598f350b3dc675018d539114d1328189ef" />
+                <dependencies>
+                  <group targetFramework="net8.0" />
+                </dependencies>
+              </metadata>
+            </package>
+            """;
+
+        return Verifier.Verify(new Target(extension: "nuspec", data: manifest, name: "manifest")).ScrubNuspec();
     }
 
     [TestMethod]
     public Task DoNotScrubNonHttpsRepoUrl()
     {
-        return VerifyFile(_packageWithoutRepoHttps).ScrubNuspec();
+        string manifest =
+            """
+            <?xml version="1.0" encoding="utf-8"?>
+            <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+              <metadata>
+                <id>PackageWithoutRepoHttps</id>
+                <version>1.0.0</version>
+                <authors>PackageWithoutRepoHttps</authors>
+                <description>Package Description</description>
+                <repository type="git" url="http://github.com/MattKotsenas/Verify.Nupkg" commit="0e4d1b598f350b3dc675018d539114d1328189ef" />
+                <dependencies>
+                  <group targetFramework="net8.0" />
+                </dependencies>
+              </metadata>
+            </package>
+            """;
+
+        return Verifier.Verify(new Target(extension: "nuspec", data: manifest, name: "manifest")).ScrubNuspec();
     }
 
     [TestMethod]
     public Task DoNotScrubNonGitHubDomainRepoUrl()
     {
-        return VerifyFile(_packageWithoutRepoGitHubDomain).ScrubNuspec();
+        string manifest =
+            """
+            <?xml version="1.0" encoding="utf-8"?>
+            <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+              <metadata>
+                <id>PackageWithoutRepoGitHubDomain</id>
+                <version>1.0.0</version>
+                <authors>PackageWithoutRepoGitHubDomain</authors>
+                <description>Package Description</description>
+                <repository type="git" url="https://bitbucket.com/my/cool/project" commit="0e4d1b598f350b3dc675018d539114d1328189ef" />
+                <dependencies>
+                  <group targetFramework="net8.0" />
+                </dependencies>
+              </metadata>
+            </package>
+            """;
+
+        return Verifier.Verify(new Target(extension: "nuspec", data: manifest, name: "manifest")).ScrubNuspec();
     }
 
     [TestMethod]
     public Task SkipScrubbingForRepoWithNoCommit()
     {
-        return VerifyFile(_packageWithoutRepoCommit).ScrubNuspec();
+        string manifest =
+            """
+            <?xml version="1.0" encoding="utf-8"?>
+            <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+              <metadata>
+                <id>PackageWithoutRepoUrlOrCommitOrBranch</id>
+                <version>1.0.0</version>
+                <authors>PackageWithoutRepoUrlOrCommitOrBranch</authors>
+                <description>Package Description</description>
+                <repository type="git" />
+                <dependencies>
+                  <group targetFramework="net8.0" />
+                </dependencies>
+              </metadata>
+            </package>
+            """;
+
+        return Verifier.Verify(new Target(extension: "nuspec", data: manifest, name: "manifest")).ScrubNuspec();
     }
 
     [TestMethod]
     public Task SkipScrubbingForRepoWithNoUrl()
     {
-        return VerifyFile(_packageWithoutRepoUrl).ScrubNuspec();
+        string manifest =
+            """
+            <?xml version="1.0" encoding="utf-8"?>
+            <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+              <metadata>
+                <id>PackageWithoutRepoUrlOrCommitOrBranch</id>
+                <version>1.0.0</version>
+                <authors>PackageWithoutRepoUrlOrCommitOrBranch</authors>
+                <description>Package Description</description>
+                <repository type="git" />
+                <dependencies>
+                  <group targetFramework="net8.0" />
+                </dependencies>
+              </metadata>
+            </package>
+            """;
+
+        return Verifier.Verify(new Target(extension: "nuspec", data: manifest, name: "manifest")).ScrubNuspec();
     }
 
     [TestMethod]
     public Task SkipScrubbingForRepoWithNoBranch()
     {
-        return VerifyFile(_packageWithoutRepoBranch).ScrubNuspec();
+        string manifest =
+            """
+            <?xml version="1.0" encoding="utf-8"?>
+            <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+              <metadata>
+                <id>PackageWithoutRepoUrlOrCommitOrBranch</id>
+                <version>1.0.0</version>
+                <authors>PackageWithoutRepoUrlOrCommitOrBranch</authors>
+                <description>Package Description</description>
+                <repository type="git" />
+                <dependencies>
+                  <group targetFramework="net8.0" />
+                </dependencies>
+              </metadata>
+            </package>
+            """;
+
+        return Verifier.Verify(new Target(extension: "nuspec", data: manifest, name: "manifest")).ScrubNuspec();
+    }
+
+    [TestMethod]
+    public Task OnlyOptInScrubbersRun()
+    {
+        string manifest =
+            """
+            <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+              <metadata>
+                <id>SimplePackageWithSymbols</id>
+                <version>1.0.0</version>
+                <authors>SimplePackageWithSymbols</authors>
+                <readme>README.md</readme>
+                <description>Package Description</description>
+                <repository type="git" url="https://github.com/MattKotsenas/Verify.Nupkg.git" branch="dev" commit="0e4d1b598f350b3dc675018d539114d1328189ef" />
+                <dependencies>
+                  <group targetFramework="net8.0" />
+                </dependencies>
+              </metadata>
+            </package>
+            """;
+
+        // In this test we intentionally _do not_ include these scrubbers:
+        //  - Version
+        //  - Schema
+        // to validate that only scrubbers we opt-in to are applied.
+        return Verifier.Verify(new Target(extension: "nuspec", data: manifest, name: "manifest"))
+            .ScrubNuspecCommit()
+            .ScrubNuspecRepositoryUrl()
+            .ScrubNuspecBranch();
     }
 }

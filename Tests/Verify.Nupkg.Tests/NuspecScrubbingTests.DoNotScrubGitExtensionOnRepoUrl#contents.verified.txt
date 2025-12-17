@@ -1,5 +1,0 @@
-﻿/
-|-- PackageWithRepoGitExtension.nuspec
-|-- lib
-|   |-- net8.0
-|   |   |-- PackageWithRepoGitExtension.dll
