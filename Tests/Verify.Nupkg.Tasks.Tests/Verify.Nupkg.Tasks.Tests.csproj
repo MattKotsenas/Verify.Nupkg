@@ -1,0 +1,25 @@
+<Project Sdk="MSTest.Sdk">
+
+  <PropertyGroup>
+    <!-- TODO: Add back net472 -->
+    <!-- These end-to-end tests build projects with MSBuild.ProjectCreation which has
+         compatibility issues with .NET Framework 4.7.2 on modern SDK versions.
+         The task itself is tested on net472 via the main Verify.Nupkg.Tests project. -->
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="MSBuild.ProjectCreation" />
+    <PackageReference Include="Polyfill" PrivateAssets="all" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Verify.Nupkg.Tasks\Verify.Nupkg.Tasks.csproj" />
+  </ItemGroup>
+
+</Project>
